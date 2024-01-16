@@ -1,7 +1,7 @@
 // frontend/src/pages/NewsForm.js
 
 import React from 'react';
-import Footer from '../Components/Footer';
+
 import Header from '../Components/HeaderB';
 
 
@@ -100,7 +100,7 @@ const NewsForm = () => {
         </form>
       </div>
 
-      <Footer />
+
     </div>
   );
 };

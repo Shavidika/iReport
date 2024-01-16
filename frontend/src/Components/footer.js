@@ -1,10 +1,18 @@
 import React from 'react';
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white p-2 fixed bottom-0 w-full flex justify-between items-center">
-      <div>&copy; {new Date().getFullYear()} iReport. All rights reserved.</div>
-      <div>Contact us</div>
+    <footer className="bg-black text-white py-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="text-left">
+          <p>All rights reserved <span className="text-red-500">iReport</span> @2024</p>
+        </div>
+        <div className="text-right">
+          <p>Contact Us</p>
+        </div>
+      </div>
     </footer>
   );
 }
+
+export default Footer;

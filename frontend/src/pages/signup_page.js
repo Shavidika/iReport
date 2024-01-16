@@ -1,13 +1,11 @@
-// frontend/src/pages/signup_page.jsx
-
 import React from 'react';
 import Header from '../Components/Header';
-
+import Footer from '../Components/Footer';
 
 const SignupPage = () => {
   return (
-    <div className="bg-red-500 text-white min-h-screen">
-      <Header/>
+    <div style={{ background: 'red' }} className="text-black min-h-screen">
+      <Header />
 
       <div className="container mx-auto mt-8 p-8">
         <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
@@ -17,7 +15,7 @@ const SignupPage = () => {
             <label className="block text-sm font-semibold mb-2">User Name</label>
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
               placeholder="Enter your user name"
             />
           </div>
@@ -26,7 +24,7 @@ const SignupPage = () => {
             <label className="block text-sm font-semibold mb-2">Email</label>
             <input
               type="email"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
               placeholder="Enter your email"
             />
           </div>
@@ -35,7 +33,7 @@ const SignupPage = () => {
             <label className="block text-sm font-semibold mb-2">Password</label>
             <input
               type="password"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
               placeholder="Enter your password"
             />
           </div>
@@ -44,21 +42,21 @@ const SignupPage = () => {
             <label className="block text-sm font-semibold mb-2">Phone Number</label>
             <input
               type="tel"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
               placeholder="Enter your phone number"
             />
           </div>
 
           <button
             type="submit"
-            className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 transition"
+            className="bg-red-700 text-white py-2 px-4 rounded hover:bg-darkred-800 transition"
           >
             Sign Up
           </button>
         </form>
       </div>
 
-      <footer/>
+      <Footer />
     </div>
   );
 };

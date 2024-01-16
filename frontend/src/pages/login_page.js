@@ -1,16 +1,17 @@
-// frontend/src/pages/signup_page.jsx
+// frontend/src/pages/login_page.jsx
 
 import React from 'react';
-import Header from 'frontend/src/Components/header.jsx';
-import Footer from 'frontend/src/Components/footer';
 
-const SignupPage = () => {
+
+import Header from '../Components/Header';
+
+const LoginPage = () => {
   return (
     <div className="bg-red-500 text-white min-h-screen">
-      <Header />
+      <Header/>
 
       <div className="container mx-auto mt-8 p-8">
-        <h1 className="text-3xl font-bold mb-4">Sign Up</h1>
+        <h1 className="text-3xl font-bold mb-4">Login</h1>
 
         <form className="max-w-md">
           <div className="mb-4">
@@ -41,11 +42,11 @@ const SignupPage = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Phone Number</label>
+            <label className="block text-sm font-semibold mb-2">Role</label>
             <input
-              type="tel"
+              type="text"
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Enter your phone number"
+              placeholder="Enter your role"
             />
           </div>
 
@@ -53,14 +54,14 @@ const SignupPage = () => {
             type="submit"
             className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 transition"
           >
-            Sign Up
+            Log In
           </button>
         </form>
       </div>
 
-      <Footer />
+      <footer/>
     </div>
   );
 };
 
-export default SignupPage;
+export default LoginPage;

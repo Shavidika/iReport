@@ -10,28 +10,32 @@ const authenticate = asyncHandler(
       let token = req.cookies.jwt;
 
       if (!token) {
-        throw new AuthenticationError("Token not found");
+        res.status(401);
+        throw new AuthenticationError("Not authorized, token not found");
       }
 
       const jwtSecret = process.env.JWT_SECRET || "";
       const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
 
       if (!decoded || !decoded.userId) {
-        throw new AuthenticationError("UserId not found");
+        res.status(401);
+        throw new AuthenticationError("Not authorized, userId not found");
       }
 
-      const user = await User.findById(decoded.userId, "_id name email");
+      const user = await User.findById(decoded.userId, "_id name email"); 
 
       if (!user) {
-        throw new AuthenticationError("User not found");
-      }
+        res.status(401);
+        throw new AuthenticationError("Not authorized, user not found");
+      } 
 
       req.user = user;
       next();
     } catch (e) {
-      throw new AuthenticationError("Invalid token");
+      res.status(401);
+      throw new AuthenticationError("Not authorized, invalid token");
     }
   }
 );
 
-export { authenticate };
+export { authenticate }; 

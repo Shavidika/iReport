@@ -3,7 +3,7 @@ import User from "../models/User";
 
 const getUser = async (req: Request, res: Response) => {
   const userId = req.user?._id;
-  const user = await User.findById(userId, "name email");
+  const user = await User.findById(userId, "name email userImage");
 
   if (!user) {
     res.status(400);

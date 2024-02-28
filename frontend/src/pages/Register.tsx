@@ -1,8 +1,36 @@
 import React from "react";
 import Header from "../components/Header";
 import Map from "../Assets/World_dot_map.png";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { register } from "../slices/authSlice";
+import { useState } from "react";
 
 const SignupPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async () => {
+    // This is only a basic validation of inputs. Improve this as needed.
+    if (name && email && password) {
+      try {
+        await dispatch(
+          register({
+            name,
+            email,
+            password,
+          })
+        ).unwrap();
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      // Show an error message.
+    }
+  };
+
   return (
     <div style={{ background: "red" }} className="text-black min-h-screen">
       <Header />
@@ -19,6 +47,8 @@ const SignupPage: React.FC = () => {
                 type="text"
                 className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
                 placeholder="Enter your user name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -28,6 +58,8 @@ const SignupPage: React.FC = () => {
                 type="email"
                 className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -39,6 +71,8 @@ const SignupPage: React.FC = () => {
                 type="password"
                 className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

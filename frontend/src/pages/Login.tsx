@@ -1,8 +1,44 @@
 import React from "react";
 import Header from "../components/Header";
 import Map from "../Assets/World_dot_map.png";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/redux-hooks";
+import { login } from "../slices/authSlice";
+import { Console } from "console";
 
 const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handle = () => {
+    console.log(process.env.REACT_APP_BACKEND_BASE_URL);
+    navigate("/home");
+  };
+
+  const handleLogin = async () => {
+    //console.log("Login button clicked");
+    // This is only a basic validation of inputs. Improve this as needed.
+    if (email && password) {
+      try {
+        const user = await dispatch(
+          login({
+            email,
+            password,
+          })
+        ).unwrap();
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      console.log("there is an Error");
+      // Show an error message.
+    }
+  };
+
   return (
     <div style={{ background: "red" }} className="text-black min-h-screen">
       <Header />
@@ -17,6 +53,8 @@ const LoginPage: React.FC = () => {
                 type="email"
                 className="p-2 border border-gray-300 rounded text-black w-full"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -28,6 +66,10 @@ const LoginPage: React.FC = () => {
                 type="password"
                 className="w-full p-2 border border-gray-300 rounded text-black"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
 
@@ -49,6 +91,7 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-1000 transition"
+              onClick={handleLogin}
             >
               Log In
             </button>

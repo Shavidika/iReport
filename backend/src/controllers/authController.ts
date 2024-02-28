@@ -7,7 +7,7 @@ const registerUser = async (req:Request,res:Response)=>{
     const userExist = await User.findOne({email});
 
     if (userExist){
-        res.status(400).json({message:"User is already exist"});
+        res.status(409).json({message:"User is already exist"});
     }
     else{
         const user = await User.create({
@@ -35,12 +35,9 @@ const loginUser = async (req:Request,res:Response)=>{
     if (user && (await user.comparePassword(password))){
         generateToken(res, user._id);
         res.status(201).json({
-            message : "User logged in",
             id: user._id,
-            name: user.name, 
             email: user.email,
             roles: user.roles,
-            userImage: user.userImage
           });  
     }else {
         res.status(401).json({ message: "User not found / password incorrect" });

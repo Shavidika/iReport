@@ -1,6 +1,12 @@
 import jwt from "jsonwebtoken";
 import { Response } from "express";
 
+interface TokenPayload {
+  userId: string;
+  userEmail: string;
+  roles: string[];
+}
+
 const generateToken = (res: Response, userId: string) => {
     const jwtSecret = process.env.JWT_SECRET || "";
     const token = jwt.sign({ userId }, jwtSecret, {

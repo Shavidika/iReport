@@ -14,28 +14,22 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handle = () => {
-    console.log(process.env.REACT_APP_BACKEND_BASE_URL);
-    navigate("/home");
-  };
-
-  const handleLogin = async () => {
-    //console.log("Login button clicked");
-    // This is only a basic validation of inputs. Improve this as needed.
+  const handleLogin = async (event: React.FormEvent) => {
     if (email && password) {
       try {
-        const user = await dispatch(
+        await dispatch(
           login({
             email,
             password,
           })
         ).unwrap();
+        navigate("/profile");
       } catch (e) {
         console.error(e);
       }
     } else {
       console.log("there is an Error");
-      // Show an error message.
+
     }
   };
 
@@ -89,7 +83,7 @@ const LoginPage: React.FC = () => {
             </div>
 
             <button
-              type="submit"
+              type="button"
               className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-1000 transition"
               onClick={handleLogin}
             >

@@ -4,16 +4,19 @@ import Map from "../Assets/World_dot_map.png";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { register } from "../slices/authSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const roles = ["user"];
+  const userImage = "https://i.ibb.co/yWsXMvm/User-Image.png";
 
-  const handleRegister = async () => {
-    // This is only a basic validation of inputs. Improve this as needed.
+  const handleRegister = async (event: React.FormEvent) => {
     if (name && email && password) {
       try {
         await dispatch(
@@ -21,13 +24,15 @@ const SignupPage: React.FC = () => {
             name,
             email,
             password,
+            roles,
+            userImage,
           })
         ).unwrap();
+        navigate("/login");
       } catch (e) {
         console.error(e);
       }
     } else {
-      // Show an error message.
     }
   };
 
@@ -76,7 +81,7 @@ const SignupPage: React.FC = () => {
               />
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">
                 Phone Number
               </label>
@@ -85,11 +90,12 @@ const SignupPage: React.FC = () => {
                 className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
                 placeholder="Enter your phone number"
               />
-            </div>
+            </div> */}
 
             <button
-              type="submit"
+              type="button"
               className="bg-red-700 text-white mt-4 py-2 px-4 rounded hover:bg-darkred-800 transition"
+              onClick={handleRegister}
             >
               Sign Up
             </button>

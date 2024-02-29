@@ -15,7 +15,7 @@ const registerUser = async (req:Request,res:Response)=>{
         })
 
         if (user) { 
-            generateToken(res, user._id);
+            // generateToken(res, user._id);
             res.status(201).json({
               id: user._id,
               name: user.name,
@@ -28,15 +28,17 @@ const registerUser = async (req:Request,res:Response)=>{
           }
     }
 }
-const loginUser = async (req:Request,res:Response)=>{
+const loginUser = async ( req:Request,res:Response)=>{
     const {email,password} =req.body; 
     const user = await User.findOne({email});
-
+    
     if (user && (await user.comparePassword(password))){
         generateToken(res, user._id);
+        console.log(req.body);
         res.status(201).json({
             id: user._id,
             email: user.email,
+            name: user.name,
             roles: user.roles,
           });  
     }else {

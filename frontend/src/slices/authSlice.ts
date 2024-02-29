@@ -8,6 +8,8 @@ type User = {
 
 type NewUser = User & {
   name: string;
+  roles: string[];
+  userImage: string;
 };
 
 type UserBasicInfo = {
@@ -28,6 +30,7 @@ type AuthApiState = {
   error: string | null;
 };
 
+
 const initialState: AuthApiState = {
   basicUserInfo: localStorage.getItem("userInfo")
     ? JSON.parse(localStorage.getItem("userInfo") as string)
@@ -40,6 +43,7 @@ const initialState: AuthApiState = {
 export const login = createAsyncThunk("login", async (data: User) => {
   const response = await axiosInstance.post("/login", data);
   const resData = response.data;
+  console.log("resData");
 
   localStorage.setItem("userInfo", JSON.stringify(resData));
 

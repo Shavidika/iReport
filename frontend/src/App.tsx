@@ -11,16 +11,19 @@ function App() {
   return (
     <>
       <Routes>
-        {/* <Route element={<DefaultLayout />}>
-          <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<DefaultLayout />}>
           <Route path="/register" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Route>
-        <Route element={<ProtectedLayout/>}>
-          <Route path="/profile" element={<Profile/>} />
-        </Route> */}
-        <Route path="/" element={<LoginPage />} />
+        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedLayout />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        {/* <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/register" element={<SignupPage />} />
+        <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </>
   );

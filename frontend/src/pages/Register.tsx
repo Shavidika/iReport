@@ -4,7 +4,7 @@ import Map from "../Assets/World_dot_map.png";
 import { useAppDispatch } from "../hooks/redux-hooks";
 import { register } from "../slices/authSlice";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignupPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -68,7 +68,7 @@ const SignupPage: React.FC = () => {
               />
             </div>
 
-            <div className="mb-4">
+            <div className="mb-2">
               <label className="block text-sm font-semibold mb-2">
                 Password
               </label>
@@ -91,6 +91,18 @@ const SignupPage: React.FC = () => {
                 placeholder="Enter your phone number"
               />
             </div> */}
+
+            <div className="mb-0">
+              <label className="block text-sm font-semibold mb-2">
+                Already have an account?
+                <Link
+                  to="/login"
+                  className="text-blue-950 ml-1 italic hover:underline"
+                >
+                  login
+                </Link>
+              </label>
+            </div>
 
             <button
               type="button"

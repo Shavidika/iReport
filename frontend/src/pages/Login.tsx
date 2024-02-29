@@ -29,7 +29,6 @@ const LoginPage: React.FC = () => {
       }
     } else {
       console.log("there is an Error");
-
     }
   };
 
@@ -67,7 +66,7 @@ const LoginPage: React.FC = () => {
               />
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">Role</label>
               <select
                 className="w-full p-2 border border-gray-300 rounded text-black"
@@ -80,6 +79,18 @@ const LoginPage: React.FC = () => {
                 <option value="admin">Admin</option>
                 <option value="reporter">Reporter</option>
               </select>
+            </div> */}
+
+            <div className="mb-4">
+              <label className="block text-sm font-semibold mb-2">
+                Don't have an account?
+                <Link
+                  to="/register"
+                  className="text-blue-950 ml-1 italic hover:underline"
+                >
+                  register
+                </Link>
+              </label>
             </div>
 
             <button

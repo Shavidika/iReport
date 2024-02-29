@@ -7,3 +7,7 @@
 # testing
 /frontend/coverage
 /backend/coverage
+
+# env files
+/frontend/.env
+/backend/.env

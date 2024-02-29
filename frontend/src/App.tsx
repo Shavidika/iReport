@@ -11,10 +11,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
         <Route element={<DefaultLayout />}>
-          <Route path="/register" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<SignupPage />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route element={<ProtectedLayout />}>

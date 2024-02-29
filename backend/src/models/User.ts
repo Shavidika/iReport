@@ -2,6 +2,7 @@ import mongoose,{Document,Schema} from "mongoose";
 import bcrypt from "bcryptjs";
 import { Roles } from "../constants";
 
+// This interface is used to define the structure of the user object.
 export interface IUser extends Document {
     name : String;
     email: String;

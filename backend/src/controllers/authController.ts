@@ -15,7 +15,7 @@ const registerUser = async (req:Request,res:Response)=>{
         })
 
         if (user) { 
-            // generateToken(res, user._id);
+            generateToken(res, user._id);
             res.status(201).json({
               id: user._id,
               name: user.name,

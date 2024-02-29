@@ -9,6 +9,7 @@ import { authenticate } from "./middlewares/authMiddleware";
 import userRouter from "./routes/userRouter";
 import helmet from "helmet";
 import cors from "cors";
+import articleRouter from "./routes/articleRouter";
 
 dotenv.config();
 
@@ -51,7 +52,8 @@ app.listen(port,()=>{
 });
 
 
-app.use(authRouter);
+app.use("/user",authRouter);
+app.use("/article",articleRouter);
 app.use("/users",authenticate,userRouter)
 app.use(errorHandler);
 connectUserDB();

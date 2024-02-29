@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSignUpClick = () => {
-    navigate("/register");
+    navigate("/login");
   };
 
   return (
@@ -21,11 +21,11 @@ const HomePage: React.FC = () => {
       <main className="text-center">
         <h1 className="text-4xl font-bold mb-4">Welcome to iReport</h1>
         <p className="text-lg mb-6">Your trusted source for reliable news</p>
-        <button 
-        className="bg-red-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:bg-red-500 transition-colors duration-300"
-        onClick={handleSignUpClick}
+        <button
+          className="bg-red-600 text-white px-6 py-3 rounded-full font-semibold text-lg shadow-lg hover:bg-red-500 transition-colors duration-300"
+          onClick={handleSignUpClick}
         >
-          Sign Up Free
+          Log In
         </button>
       </main>
     </div>

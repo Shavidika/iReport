@@ -1,9 +1,11 @@
 import mongoose,{Document,Schema} from "mongoose";
 
 export interface IArticle extends Document {
-    title : String;
-    content: String;
+    title ?: String;
+    content?: String;
     articleImage?: String;
+    status: String;
+    authorID : String;
     upVotes?: String[];
     downVotes?: String[];
     comments?: String[];
@@ -13,15 +15,24 @@ export interface IArticle extends Document {
 const articleSchema = new Schema<IArticle>({
     title:{
         type: String,
-        required:true,
+        required:false,
     },
     content:{
         type: String,
-        required:true,
+        required:false,
     },
     articleImage:{
         type: String,
         required:false,
+    },
+    status:{
+        type: String,
+        required:true,
+        default: "draft",
+    },
+    authorID:{
+        type: String,
+        required:true,
     },
     upVotes:{
         type: [String],

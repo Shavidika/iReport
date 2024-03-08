@@ -90,7 +90,7 @@ const SignupPage: React.FC = () => {
                 className="w-full p-2 border border-gray-300 rounded text-black" // Set text color to black
                 placeholder="Enter your phone number"
               />
-            </div> */}
+            </div> */} 
 
             <div className="mb-0">
               <label className="block text-sm font-semibold mb-2">

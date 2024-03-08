@@ -51,5 +51,5 @@ const logoutUser = (req:Request,res:Response)=>{
     clearToken(res);
     res.status(200).json({ message: "User logged out" });
 }
-
+ 
 export {registerUser,loginUser,logoutUser}

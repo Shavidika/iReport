@@ -53,7 +53,7 @@ app.listen(port,()=>{
 
 
 app.use("/user",authRouter);
-app.use("/article",articleRouter);
-app.use("/users",authenticate,userRouter)
+app.use("/article",authenticate, articleRouter);
+app.use("/users",authenticate, userRouter)
 app.use(errorHandler);
 connectUserDB();

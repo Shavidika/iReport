@@ -68,11 +68,41 @@ const updateArticle = async (req: Request, res: Response, status: string) => {
 
 export const getSubmittedArticles = async (req: Request, res: Response) => {
     const articles = await Article.find({status: "submitted"});
+
+    if (!articles) {
+        res.status(404).json({ message: "No articles found" });
+    }
+
     res.status(200).json(articles);
 } 
 
 export const getPublishedArticles = async (req: Request, res: Response) => {
     const articles = await Article.find({status: "published"});
+
+    if (!articles) {
+        res.status(404).json({ message: "No articles found" });
+    }
+  
+    res.status(200).json(articles);
+}
+
+export const getDrafts = async (req: Request, res: Response) => {
+    const drafts = await Article.find({status: "draft"});
+
+    if (!drafts) {
+      res.status(404).json({ message: "No articles found" });
+    }
+
+    res.status(200).json(drafts);
+}
+
+export const getDeclinedArticles = async (req: Request, res: Response) => {
+    const articles = await Article.find({status: "declined"});
+
+    if (!articles) {
+      res.status(404).json({ message: "No articles found" });
+    }
+
     res.status(200).json(articles);
 }
 
@@ -93,7 +123,50 @@ export const submitArticle = async (req: Request, res: Response) => {
 
 export const publishArticle = async (req: Request, res: Response) => {
     const status = "published";
-    updateArticle(req, res, status);
+    try {
+        //const { title, content, articleImage } = req.body;
+        const articledetails = { status};
+        
+        const { id: _id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(_id))
+          return res.status(404).send("No post with that id");
+        // const oldArticle = await Article.findById(_id);
+    
+          const updatedPost = await Article.findByIdAndUpdate(_id, articledetails, {
+            upsert: true,
+            new: true,
+          });
+          // console.log(req.user?.roles);
+          res.json(updatedPost);
+
+        } catch (error) {
+        const err = error as Error;
+        res.status(500).send({ message: err.message });
+    }
+}
+
+export const declineArticle = async (req: Request, res: Response) => {
+    const status = "declined";
+    try {
+        //const { title, content, articleImage } = req.body;
+        const articledetails = { status};
+        
+        const { id: _id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(_id))
+          return res.status(404).send("No post with that id");
+        // const oldArticle = await Article.findById(_id);
+    
+          const updatedPost = await Article.findByIdAndUpdate(_id, articledetails, {
+            upsert: true,
+            new: true,
+          });
+          // console.log(req.user?.roles);
+          res.json(updatedPost);
+
+        } catch (error) {
+        const err = error as Error;
+        res.status(500).send({ message: err.message });
+    }
 }
 
 export const createEmptyDraft = async (req: Request, res: Response) => {
@@ -122,31 +195,49 @@ export const createEmptyDraft = async (req: Request, res: Response) => {
 }
 
 
-export const update_Article = async (req: Request, res: Response) => {
-    try {
-        const { id: _id } = req.params; 
-        const post = req.body;
-        const oldArticle = await Article.findById(_id);
+// export const update_Article = async (req: Request, res: Response) => {
+//     try {
+//         const { id: _id } = req.params; 
+//         const post = req.body;
+//         const oldArticle = await Article.findById(_id);
 
+//         if (!mongoose.Types.ObjectId.isValid(_id))
+//             return res.status(404).send('No post with that id');
+
+//         if (oldArticle?._id != req.user?._id) {
+//             return res.status(401).send('You are not allowed to update this post');
+//         }else if (oldArticle?.status == "published"|| oldArticle?.status == "submitted"){
+//             return res.status(401).send('This article already submitted or published, you are not allowed to update this post');
+//         }else{
+//             const updatedPost = await Article.findByIdAndUpdate(_id, post, { new: true });
+//             res.json(updatedPost);
+//         }
+
+//     } catch (error) {
+//         const err = error as Error;
+//         res.status(500).send({ message: err.message });
+//     }
+// }
+
+export const deleteDraft = async (req: Request, res: Response) => {
+    try {
+        const { id: _id } = req.params;
         if (!mongoose.Types.ObjectId.isValid(_id))
             return res.status(404).send('No post with that id');
+        const oldArticle = await Article.findById(_id);
 
-        if (oldArticle?._id != req.user?._id) {
-            return res.status(401).send('You are not allowed to update this post');
-        }else if (oldArticle?.status == "published"|| oldArticle?.status == "submitted"){
-            return res.status(401).send('This article already submitted or published, you are not allowed to update this post');
-        }else{
-            const updatedPost = await Article.findByIdAndUpdate(_id, post, { new: true });
-            res.json(updatedPost);
+        if (oldArticle?.authorID != req.user?._id) {
+            return res.status(401).send('You are not allowed to delete this post');
+        } else if (oldArticle?.status == "published" || oldArticle?.status == "submitted") {
+            return res.status(401).send('This article already submitted or published, you are not allowed to delete this post');
+        } else {
+            await Article.findByIdAndDelete(_id);
+            res.json({ message: 'Post deleted successfully' });
         }
-
     } catch (error) {
         const err = error as Error;
         res.status(500).send({ message: err.message });
     }
-}
-
-export const deleteArticle = async (req: Request, res: Response) => {
 
 }
 

@@ -22,7 +22,7 @@ const authenticate = asyncHandler(
         throw new AuthenticationError("Not authorized, userId not found");
       }
 
-      const user = await User.findById(decoded.userId, "_id name email"); 
+      const user = await User.findById(decoded.userId, "_id name email roles"); 
 
       if (!user) {
         res.status(401);
@@ -38,4 +38,19 @@ const authenticate = asyncHandler(
   }
 );
 
-export { authenticate }; 
+const authorize = (allowedRoles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const userRoles = req.user?.roles.map((role) => role.toString()) || [];
+
+    if (
+      !userRoles ||
+      !userRoles.some((role: string) => allowedRoles.includes(role))
+    ) {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    next();
+  };
+};
+
+export { authenticate , authorize}; 

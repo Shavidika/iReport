@@ -5,8 +5,7 @@ import {
   getArticle,
   submitArticle,
   saveDraft,
-  update_Article,
-  deleteArticle,
+  deleteDraft,
   getArticleByUser,
   getArticleByCategory,
   getArticleBySearch,
@@ -14,18 +13,28 @@ import {
   downvoteArticle,
   commentArticle,
   createEmptyDraft,
+  publishArticle,
+  declineArticle,
+  getDrafts,
+  getDeclinedArticles,
 } from "../controllers/articleController";
+import { authorize } from "../middlewares/authMiddleware";
+import { Roles } from "../constants";
 
 const router = express.Router();
 
-router.get("/submitted/all", getSubmittedArticles);
-router.get("/published/all", getPublishedArticles);
+router.get("/submitted/all", authorize([Roles.Admin]),getSubmittedArticles);
+router.get("/all", getPublishedArticles);
+router.get("/drafts/all", authorize([Roles.Reporter]),getDrafts);
+router.get("/declined/all",authorize([Roles.Admin]) ,getDeclinedArticles);
 router.get("/:id", getArticle);
 
-router.post("/draft", createEmptyDraft);
-router.put("/submit/:id", submitArticle);
-router.put("/draft/:id", saveDraft);
-router.delete("/:id", deleteArticle);
+router.post("/draft",authorize([Roles.Reporter]), createEmptyDraft);
+router.put("/submit/:id",authorize([Roles.Reporter]), submitArticle);
+router.put("/draft/:id", authorize([Roles.Reporter]) ,saveDraft);
+router.put("/publish/:id", authorize([Roles.Admin]) ,publishArticle);
+router.put("/decline/:id", authorize([Roles.Admin]) ,declineArticle);
+router.delete("/delete/:id",authorize([Roles.Reporter]) ,deleteDraft);
 
 router.get("/user/:id", getArticleByUser);
 router.get("/category/:category", getArticleByCategory);

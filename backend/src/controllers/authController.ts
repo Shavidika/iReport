@@ -3,7 +3,7 @@ import User from "../models/User"
 import { generateToken,clearToken } from "../utils/auth";
 
 const registerUser = async (req:Request,res:Response)=>{
-    const {name,email,password,roles,userImage} = req.body;
+    const {name,email,password,userImage} = req.body;
     const userExist = await User.findOne({email});
 
     if (userExist){
@@ -11,21 +11,27 @@ const registerUser = async (req:Request,res:Response)=>{
     }
     else{
         const user = await User.create({
-            name,email,password,roles,userImage,
+            name,email,password,userImage,
         })
 
-        if (user) { 
-            generateToken(res, user._id);
-            res.status(201).json({
-              id: user._id,
-              name: user.name,
-              email: user.email,
-              roles: user.roles,
-              userImage: user.userImage
-            });
-          } else {
-            res.status(400).json({ message: "An error occurred in creating the user" });
-          }
+        if (user) {
+          generateToken(res, {
+            userId: user._id,
+            userEmail: user.email.toString(),
+            roles: user.roles.map((role) => role.toString()),
+          });
+          res.status(201).json({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            roles: user.roles,
+            userImage: user.userImage,
+          });
+        } else {
+          res
+            .status(400)
+            .json({ message: "An error occurred in creating the user" });
+        }
     }
 }
 const loginUser = async ( req:Request,res:Response)=>{
@@ -33,7 +39,11 @@ const loginUser = async ( req:Request,res:Response)=>{
     const user = await User.findOne({email});
     
     if (user && (await user.comparePassword(password))){
-        generateToken(res, user._id);
+        generateToken(res, {
+            userId: user._id,
+            userEmail: user.email.toString(),
+            roles: user.roles.map((role) => role.toString()),
+          });
         console.log(req.body);
         res.status(201).json({
             id: user._id,

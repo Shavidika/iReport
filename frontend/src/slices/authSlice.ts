@@ -16,6 +16,7 @@ type UserBasicInfo = {
   id: string;
   name: string;
   email: string;
+  roles: string[];
 };
 
 type UserProfileData = {

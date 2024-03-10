@@ -5,8 +5,10 @@ import { getArticles } from "../slices/articleSlice";
 import { getUser } from "../slices/authSlice";
 
 const NewsCard: React.FC = () => {
-  const [upvotedArticles, setUpvotedArticles] = useState<string[]>([]);
   const [downvotedArticles, setDownvotedArticles] = useState<string[]>([]);
+  const [upvotedArticles, setUpvotedArticles] = useState<string[]>([]);
+  const [isUpvoteHovered, setIsUpvoteHovered] = useState<boolean>(false);
+  const [isDownvoteHovered, setIsDownvoteHovered] = useState<boolean>(false);
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
   const avatarImageUrl =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
@@ -19,8 +21,6 @@ const NewsCard: React.FC = () => {
       dispatch(getUser(article.authorName));
     });
   }, [articles, dispatch]);
-
-  
 
   useEffect(() => {
     dispatch(getArticles());
@@ -57,7 +57,6 @@ const NewsCard: React.FC = () => {
                 <div className="flex items-center space-x-4">
                   <img
                     className="w-7 h-7 rounded-full"
-                    // the auther image should be here
                     src={item.authorImage || avatarImageUrl}
                     alt={item.authorName || "Anonymous"}
                   />
@@ -82,18 +81,28 @@ const NewsCard: React.FC = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   <button
-                    className={`flex items-center space-x-1 text-gray-500 hover:text-blue-500 ${
-                      upvotedArticles.includes(item.id) ? "text-blue-500" : ""
+                    className={`flex items-center space-x-1 text-blue-500 ${
+                      upvotedArticles.includes(item.id)
+                        ? "text-blue-500"
+                        : "text-gray-500"
                     }`}
+                    onMouseEnter={() => setIsUpvoteHovered(true)}
+                    onMouseLeave={() => setIsUpvoteHovered(false)}
                     onClick={() => handleUpvote(item.id)}
+                    style={{ transform: isUpvoteHovered ? "scale(1.1)" : "scale(1)" }}
                   >
                     <FaThumbsUp />
                   </button>
                   <button
-                    className={`flex items-center space-x-1 text-gray-500 hover:text-red-500 ${
-                      downvotedArticles.includes(item.id) ? "text-red-500" : ""
+                    className={`flex items-center space-x-1 text-gray-500 ${
+                      downvotedArticles.includes(item.id)
+                        ? "text-red-500"
+                        : "text-gray-500"
                     }`}
+                    onMouseEnter={() => setIsDownvoteHovered(true)}
+                    onMouseLeave={() => setIsDownvoteHovered(false)}
                     onClick={() => handleDownvote(item.id)}
+                    style={{ transform: isDownvoteHovered ? "scale(1.1)" : "scale(1)" }}
                   >
                     <FaThumbsDown />
                   </button>

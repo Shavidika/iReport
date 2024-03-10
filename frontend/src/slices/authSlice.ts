@@ -22,6 +22,8 @@ type UserBasicInfo = {
 type UserProfileData = {
   name: string;
   email: string;
+  roles: string[];
+  userImage: string;
 };
 
 type AuthApiState = {

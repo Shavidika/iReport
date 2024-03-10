@@ -18,12 +18,12 @@ function App() {
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/test" element={<NewsFeed />} />
+        {/* <Route path="/test" element={<NewsFeed />} /> */}
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
         </Route>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<NewsFeed />} />
         <Route
           element={
             <ProtectedLayout

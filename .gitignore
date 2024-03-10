@@ -3,6 +3,11 @@
 # dependencies
 /frontend/node_modules
 /backend/node_modules
+/frontend/coverage
+/backend/coverage
+/frontend/.env
+/backend/.env
+
 
 # testing
 /frontend/coverage

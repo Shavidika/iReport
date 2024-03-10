@@ -66,6 +66,7 @@ const updateArticle = async (req: Request, res: Response, status: string) => {
 }
 
 
+
 export const getSubmittedArticles = async (req: Request, res: Response) => {
     const articles = await Article.find({status: "submitted"});
 
@@ -77,7 +78,7 @@ export const getSubmittedArticles = async (req: Request, res: Response) => {
 } 
 
 export const getPublishedArticles = async (req: Request, res: Response) => {
-    const articles = await Article.find({status: "published"});
+  const articles = await Article.find({status: "published"});
 
     if (!articles) {
         res.status(404).json({ message: "No articles found" });
@@ -105,6 +106,7 @@ export const getDeclinedArticles = async (req: Request, res: Response) => {
 
     res.status(200).json(articles);
 }
+
 
 export const getArticle = async (req: Request, res: Response) => {
     
@@ -172,9 +174,10 @@ export const declineArticle = async (req: Request, res: Response) => {
 export const createEmptyDraft = async (req: Request, res: Response) => {
     const status = "draft";
     const authorID = req.user?._id;
+    const authorName = req.user?.name;
 
     const article = await Article.create({
-        status, authorID
+        status, authorID, authorName
     });
 
     if (article) {

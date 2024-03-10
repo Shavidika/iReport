@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
             password,
           })
         ).unwrap();
-        navigate("/profile");
+        navigate("/");
       } catch (e) {
         setPasswordError("Invalid email or password");
         console.error(e);

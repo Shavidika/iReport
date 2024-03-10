@@ -58,7 +58,7 @@ const NewsCard: React.FC = () => {
                   <img
                     className="w-7 h-7 rounded-full"
                     // the auther image should be here
-                    src={avatarImageUrl}
+                    src={item.authorImage || avatarImageUrl}
                     alt={item.authorName || "Anonymous"}
                   />
                   <span className="font-medium text-gray-900">

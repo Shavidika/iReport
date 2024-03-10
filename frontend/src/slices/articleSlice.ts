@@ -10,6 +10,7 @@ type ArticleInfo = {
   upvotes: number;
   downvotes: number;
   authorName: string;
+  authorImage: string;
   authorId: string;
 };
 

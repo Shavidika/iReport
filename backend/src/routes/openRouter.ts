@@ -4,7 +4,7 @@ import express from "express";
 import {
   getPublishedArticles,
 } from "../controllers/articleController";
-import { authorize } from "../middlewares/authMiddleware";
+
 
 
 const router = express.Router();

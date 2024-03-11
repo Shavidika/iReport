@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import LoginPage from "./pages/Login_";
-import SignupPage from "./pages/Register";
+import SignupPage from "./pages/Register_";
 import DefaultLayout from "./layouts/DefaultLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Profile from "./pages/Profile";

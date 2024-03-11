@@ -16,6 +16,11 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/24/solid";
+import { useAppSelector } from "../hooks/redux-hooks";
+
+// Avatar image URL
+const avatarImageUrl =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
 
 interface Product {
   name: string;
@@ -42,10 +47,7 @@ interface CallToAction {
   icon: React.ElementType;
 }
 
-const callsToAction: CallToAction[] = [
-  // { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  // { name: 'Contact sales', href: '#', icon: PhoneIcon },
-];
+const callsToAction: CallToAction[] = [];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -53,6 +55,14 @@ function classNames(...classes: string[]) {
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+  const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
+
+  const handleBeReporter = () => {
+    
+    setIsLoggedIn(false);
+  };
 
   return (
     <header className="bg-white">
@@ -154,10 +164,31 @@ export default function Header() {
             About us
           </a>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
+          {basicUserInfo ? ( // Conditional rendering based on login status
+            <Fragment>
+              <button
+                className=" text-red-500 text- font-semibold leading-6"
+                onClick={handleBeReporter}
+              >
+                Switch to Reporting
+              </button>
+              <Link to="/profile">
+                <img
+                  className="h-10 w-10 rounded-full ml-20"
+                  src={userProfileInfo?.userImage || avatarImageUrl}
+                  alt="Avatar"
+                />
+              </Link>
+            </Fragment>
+          ) : (
+            <Link
+              to="/login"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link> 
+          )}
         </div>
       </nav>
       <Dialog
@@ -237,12 +268,21 @@ export default function Header() {
                 </a>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                {!basicUserInfo ? (
+                  <button
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={handleBeReporter}
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Log in
+                  </Link>
+                )}
               </div>
             </div>
           </div>

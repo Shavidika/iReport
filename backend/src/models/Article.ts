@@ -5,7 +5,8 @@ export interface IArticle extends Document {
     content?: String;
     articleImage?: String;
     status: String;
-    authorID : String;
+    authorID : string;
+    authorName?: string;
     upVotes?: String[];
     downVotes?: String[];
     comments?: String[];
@@ -33,6 +34,10 @@ const articleSchema = new Schema<IArticle>({
     authorID:{
         type: String,
         required:true,
+    },
+    authorName:{
+        type: String,
+        required:false,
     },
     upVotes:{
         type: [String],

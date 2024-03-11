@@ -65,6 +65,32 @@ const updateArticle = async (req: Request, res: Response, status: string) => {
       }
 }
 
+const combineAuthor = async (article: any) => {
+    const author = await User.findById(article.authorID);
+    return {
+        id: article._id,
+        title: article.title,
+        content: article.content,
+        authorName: author?.name,
+        authorImage: author?.userImage,
+        articleImage: article.articleImage,
+        date: article.date,
+        upvotes: article.upVotes,
+        downvotes: article.downVotes,
+        comments: article.comments,
+    };
+}
+
+export const getPublishedArticles = async (req: Request, res: Response) => {
+  const articles = await Article.find({status: "published"});
+
+    if (!articles) {
+        res.status(404).json({ message: "No articles found" });
+    }
+  
+    const articlesWithAuthor = await Promise.all(articles.map(combineAuthor));
+    res.status(200).json(articlesWithAuthor);
+}
 
 export const getSubmittedArticles = async (req: Request, res: Response) => {
     const articles = await Article.find({status: "submitted"});
@@ -76,15 +102,6 @@ export const getSubmittedArticles = async (req: Request, res: Response) => {
     res.status(200).json(articles);
 } 
 
-export const getPublishedArticles = async (req: Request, res: Response) => {
-    const articles = await Article.find({status: "published"});
-
-    if (!articles) {
-        res.status(404).json({ message: "No articles found" });
-    }
-  
-    res.status(200).json(articles);
-}
 
 export const getDrafts = async (req: Request, res: Response) => {
     const drafts = await Article.find({status: "draft"});
@@ -105,6 +122,7 @@ export const getDeclinedArticles = async (req: Request, res: Response) => {
 
     res.status(200).json(articles);
 }
+
 
 export const getArticle = async (req: Request, res: Response) => {
     
@@ -172,9 +190,10 @@ export const declineArticle = async (req: Request, res: Response) => {
 export const createEmptyDraft = async (req: Request, res: Response) => {
     const status = "draft";
     const authorID = req.user?._id;
+    const authorName = req.user?.name;
 
     const article = await Article.create({
-        status, authorID
+        status, authorID, authorName
     });
 
     if (article) {

@@ -1,36 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-
-const articles = [
-  {
-    id: 105,
-    authorName: "Jese Leos",
-    title: "sri lanka won the match",
-    content:
-      "Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.",
-    articleImage: "https://i.ibb.co/FBSRxms/SL-won.jpg",
-  },
-  {
-    id: 106,
-    title: "sri lanka won the match1",
-    content:
-      "Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.",
-    articleImage: "https://i.ibb.co/FBSRxms/SL-won.jpg",
-  },
-  {
-    id: 107,
-    title: "sri lanka won the match1",
-    content:
-      "Static websites are now used to bootstrap lots of websites and are becoming the basis for a variety of tools that even influence both web designers and developers influence both web designers and developers.",
-    articleImage: "https://i.ibb.co/FBSRxms/SL-won.jpg",
-  },
-];
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { getArticles } from "../slices/articleSlice";
+import { getUser } from "../slices/authSlice";
 
 const NewsCard: React.FC = () => {
-  const [upvotedArticles, setUpvotedArticles] = useState<number[]>([]);
-  const [downvotedArticles, setDownvotedArticles] = useState<number[]>([]);
+  const [downvotedArticles, setDownvotedArticles] = useState<string[]>([]);
+  const [upvotedArticles, setUpvotedArticles] = useState<string[]>([]);
+  const [isUpvoteHovered, setIsUpvoteHovered] = useState<boolean>(false);
+  const [isDownvoteHovered, setIsDownvoteHovered] = useState<boolean>(false);
+  const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
+  const avatarImageUrl =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
 
-  const handleUpvote = (articleId: number) => {
+  const dispatch = useAppDispatch();
+  const articles = useAppSelector((state) => state.articles.articles);
+
+  useEffect(() => {
+    articles.forEach((article) => {
+      dispatch(getUser(article.authorName));
+    });
+  }, [articles, dispatch]);
+
+  useEffect(() => {
+    dispatch(getArticles());
+  }, []);
+
+  const handleUpvote = (articleId: string) => {
     if (!upvotedArticles.includes(articleId)) {
       setUpvotedArticles([...upvotedArticles, articleId]);
       setDownvotedArticles(downvotedArticles.filter((id) => id !== articleId));
@@ -39,7 +35,7 @@ const NewsCard: React.FC = () => {
     }
   };
 
-  const handleDownvote = (articleId: number) => {
+  const handleDownvote = (articleId: string) => {
     if (!downvotedArticles.includes(articleId)) {
       setDownvotedArticles([...downvotedArticles, articleId]);
       setUpvotedArticles(upvotedArticles.filter((id) => id !== articleId));
@@ -55,14 +51,14 @@ const NewsCard: React.FC = () => {
           {articles.map((item) => (
             <article
               key={item.id}
-              className="p-6 bg-white rounded-lg border border-gray-200 shadow-md relative"
+              className="p-6 bg-white rounded-lg border border-gray-200 shadow-md relative overflow-auto"
             >
               <div className="flex justify-between items-center mb-5 text-gray-500">
                 <div className="flex items-center space-x-4">
                   <img
                     className="w-7 h-7 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                    alt="Jese Leos avatar"
+                    src={item.authorImage || avatarImageUrl}
+                    alt={item.authorName || "Anonymous"}
                   />
                   <span className="font-medium text-gray-900">
                     {item.authorName || "Anonymous"}
@@ -79,22 +75,34 @@ const NewsCard: React.FC = () => {
               <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                 <a href="#">{item.title}</a>
               </h2>
-              <p className="mb-5 font-light text-gray-500">{item.content}</p>
+              <p className="mb-5 font-light text-gray-500 h-40 overflow-auto">
+                {item.content}
+              </p>
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   <button
-                    className={`flex items-center space-x-1 text-gray-500 hover:text-blue-500 ${
-                      upvotedArticles.includes(item.id) ? "text-blue-500" : ""
+                    className={`flex items-center space-x-1 text-blue-500 ${
+                      upvotedArticles.includes(item.id)
+                        ? "text-blue-500"
+                        : "text-gray-500"
                     }`}
+                    onMouseEnter={() => setIsUpvoteHovered(true)}
+                    onMouseLeave={() => setIsUpvoteHovered(false)}
                     onClick={() => handleUpvote(item.id)}
+                    style={{ transform: isUpvoteHovered ? "scale(1.1)" : "scale(1)" }}
                   >
                     <FaThumbsUp />
                   </button>
                   <button
-                    className={`flex items-center space-x-1 text-gray-500 hover:text-red-500 ${
-                      downvotedArticles.includes(item.id) ? "text-red-500" : ""
+                    className={`flex items-center space-x-1 text-gray-500 ${
+                      downvotedArticles.includes(item.id)
+                        ? "text-red-500"
+                        : "text-gray-500"
                     }`}
+                    onMouseEnter={() => setIsDownvoteHovered(true)}
+                    onMouseLeave={() => setIsDownvoteHovered(false)}
                     onClick={() => handleDownvote(item.id)}
+                    style={{ transform: isDownvoteHovered ? "scale(1.1)" : "scale(1)" }}
                   >
                     <FaThumbsDown />
                   </button>

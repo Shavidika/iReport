@@ -10,6 +10,7 @@ import userRouter from "./routes/userRouter";
 import helmet from "helmet";
 import cors from "cors";
 import articleRouter from "./routes/articleRouter";
+import openRouter from "./routes/openRouter";
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ app.listen(port,()=>{
 
 app.use("/user",authRouter);
 app.use("/article",authenticate, articleRouter);
+app.use("/articles",openRouter);
 app.use("/users",authenticate, userRouter)
 app.use(errorHandler);
 connectUserDB();

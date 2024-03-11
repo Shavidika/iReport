@@ -70,7 +70,7 @@ const SignupPage: React.FC = () => {
         ).unwrap();
         navigate("/login");
       } catch (e) {
-        setPasswordError("Invalid email or password");
+        setPasswordConfError("Invalid email or password");
         console.error(e);
         navigate("/register");
       }
@@ -211,7 +211,7 @@ const SignupPage: React.FC = () => {
               <p className="text-sm font-light text-gray-500">
                 Already have an account?{" "}
                 <Link
-                  to="/register"
+                  to="/login"
                   className="font-medium text-primary-600 hover:underline"
                 >
                   Log in

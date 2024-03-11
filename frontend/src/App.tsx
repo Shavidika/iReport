@@ -14,18 +14,19 @@ import UserSettings from "./pages/UserSettings";
 import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
 import AboutUsPage from "./pages/AboutUs";
+import { ProfileInfoPopover } from "./components/profilePopover";
 
 function App() {
   return (
     <>
       <NotificationBar />
       <Routes>
-        {/* <Route path="/test" element={<NewsFeed />} /> */}
+        <Route path="/test" element={<ProfileInfoPopover />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
-          <Route path="/aboutus" element={<AboutUsPage />} />
         </Route>
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/" element={<NewsFeed />} />
         <Route
           element={

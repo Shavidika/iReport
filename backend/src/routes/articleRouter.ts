@@ -29,8 +29,8 @@ router.get("/drafts/all", authorize([Roles.Reporter]),getDrafts);
 router.get("/declined/all",authorize([Roles.Admin]) ,getDeclinedArticles);
 router.get("/:id", getArticle);
 
-router.post("/draft",authorize([Roles.Reporter]), createEmptyDraft);
-router.put("/submit/:id",authorize([Roles.Reporter]), submitArticle);
+router.post("/draft",authorize([Roles.Reporter, Roles.Admin]), createEmptyDraft);
+router.put("/submit/:id",authorize([Roles.Reporter, Roles.Admin]), submitArticle);
 router.put("/draft/:id", authorize([Roles.Reporter]) ,saveDraft);
 router.put("/publish/:id", authorize([Roles.Admin]) ,publishArticle);
 router.put("/decline/:id", authorize([Roles.Admin]) ,declineArticle);

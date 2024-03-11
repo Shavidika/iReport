@@ -60,7 +60,6 @@ export default function Header() {
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
 
   const handleBeReporter = () => {
-    
     setIsLoggedIn(false);
   };
 
@@ -71,14 +70,14 @@ export default function Header() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">iReport</span>
             <img
               className="h-10 w-auto"
               src="https://i.ibb.co/s56nq9W/i-Report-logo.png"
               alt=""
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -160,9 +159,12 @@ export default function Header() {
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Contact us
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            to="/about"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             About us
-          </a>
+          </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
           {basicUserInfo ? ( // Conditional rendering based on login status
@@ -187,7 +189,7 @@ export default function Header() {
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Log in <span aria-hidden="true">&rarr;</span>
-            </Link> 
+            </Link>
           )}
         </div>
       </nav>

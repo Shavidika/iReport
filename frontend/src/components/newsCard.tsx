@@ -75,7 +75,7 @@ const NewsCard: React.FC = () => {
               <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                 <a href="#">{item.title}</a>
               </h2>
-              <p className="mb-5 font-light text-gray-500 h-40 overflow-auto">
+              <p className="mb-5 font-light text-gray-500 h-36 overflow-clip">
                 {item.content}
               </p>
               <div className="flex justify-between items-center">
@@ -89,7 +89,9 @@ const NewsCard: React.FC = () => {
                     onMouseEnter={() => setIsUpvoteHovered(true)}
                     onMouseLeave={() => setIsUpvoteHovered(false)}
                     onClick={() => handleUpvote(item.id)}
-                    style={{ transform: isUpvoteHovered ? "scale(1.1)" : "scale(1)" }}
+                    style={{
+                      transform: isUpvoteHovered ? "scale(1.1)" : "scale(1)",
+                    }}
                   >
                     <FaThumbsUp />
                   </button>
@@ -102,7 +104,9 @@ const NewsCard: React.FC = () => {
                     onMouseEnter={() => setIsDownvoteHovered(true)}
                     onMouseLeave={() => setIsDownvoteHovered(false)}
                     onClick={() => handleDownvote(item.id)}
-                    style={{ transform: isDownvoteHovered ? "scale(1.1)" : "scale(1)" }}
+                    style={{
+                      transform: isDownvoteHovered ? "scale(1.1)" : "scale(1)",
+                    }}
                   >
                     <FaThumbsDown />
                   </button>

@@ -12,6 +12,8 @@ import NotificationBar from "./components/Notification/NotificationBar";
 import { Roles } from "./constants";
 import UserSettings from "./pages/UserSettings";
 import NotFound from "./pages/NotFound";
+import AboutUs from "./pages/AboutUs";
+import AboutUsPage from "./pages/AboutUs";
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
         </Route>
         <Route path="/" element={<NewsFeed />} />
         <Route

@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 const AboutUsPage = () => {
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-red-600 text-white min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">

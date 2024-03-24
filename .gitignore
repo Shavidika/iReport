@@ -16,3 +16,7 @@
 # env files
 /frontend/.env
 /backend/.env
+
+/frontend/package-json
+
+/package-lock.json

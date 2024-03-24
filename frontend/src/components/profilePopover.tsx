@@ -10,6 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { useNavigate, Link } from "react-router-dom";
 import { getUser, logout } from "../slices/authSlice";
+import { click } from "@testing-library/user-event/dist/click";
 
 type ButtonVariant = "text" | "outlined" | "contained" | "circular"; // Include "contained" if it's a valid variant
 
@@ -49,10 +50,12 @@ export function ProfileInfoPopover() {
 
   return (
     <Popover open={openPopover} handler={setOpenPopover}>
-      <PopoverHandler {...triggers}>
-        <Button variant="text" placeholder="{undefined}">
-          Profile Info
-        </Button>
+      <PopoverHandler {...click}>
+        <img
+          className="h-10 w-10 rounded-full ml-20"
+          src={userProfileInfo?.userImage || avatarImageUrl}
+          alt="Avatar"
+        />
       </PopoverHandler>
       <PopoverContent
         placeholder={undefined}
@@ -60,36 +63,44 @@ export function ProfileInfoPopover() {
         className="z-50 max-w-[24rem]"
       >
         <div className="mb-2 flex items-center justify-between gap-4">
-            <img
-              className="h-20 w-20 rounded-full"
-              src={userProfileInfo?.userImage || avatarImageUrl}
-              alt="Avatar"
-            />
-            <div className="flex">
-
-          <Typography
-            variant="h5"
-            color="blue-gray"
-            className="mb-2 flex items-center gap-2 font-medium"
-            placeholder={undefined}
+          <img
+            className="h-20 w-20 rounded-full"
+            src={userProfileInfo?.userImage || avatarImageUrl}
+            alt="Avatar"
+          />
+          <div className="flex-col ">
+            <Typography
+              variant="h5"
+              color="blue-gray"
+              className="mb-0 flex items-start gap-2 font-medium"
+              placeholder={undefined}
             >
-            <span>{userProfileInfo?.name || "Annonymous"}</span>
-          </Typography>
-        <Typography
-          variant="small"
-          color="gray"
-          className="font-normal text-blue-gray-500"
-          placeholder={undefined}
-          >
-            {userProfileInfo?.email || "No email"}
-        </Typography>
+              <span>{userProfileInfo?.name || "Annonymous"}</span>
+            </Typography>
+            <Typography
+              variant="small"
+              color="gray"
+              className="font-normal mb-2 text-blue-gray-500"
+              placeholder={undefined}
+            >
+              {userProfileInfo?.email || "No email"}
+            </Typography>
+            <div className="items-end">
+              <Button
+                className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                onClick={handleLogout}
+                placeholder={undefined}
+              >
+                Logout
+              </Button>
             </div>
+          </div>
         </div>
-        <div className="mt-6 flex items-center gap-8 border-t border-blue-gray-50 pt-4">
-          <Typography
+        {/* <div className="mt-1 flex items-end gap-8  pt-4"> */}
+        {/* <Typography
             variant="small"
             color="gray"
-            className="flex items-center gap-2 text-sm font-normal text-blue-gray-500"
+            className="flex items-center gap-2 text-sm font-normal text-red-gray-500"
             placeholder={undefined}
           >
             <svg
@@ -106,7 +117,7 @@ export function ProfileInfoPopover() {
                 fill="#90A4AE"
               />
             </svg>
-            United Kingdom
+            View Profile
           </Typography>
           <Typography
             as="a"
@@ -130,9 +141,9 @@ export function ProfileInfoPopover() {
                 fill="#90A4AE"
               />
             </svg>
-            Material Tailwind
-          </Typography>
-        </div>
+            Log Out
+          </Typography> */}
+        {/* </div> */}
       </PopoverContent>
     </Popover>
   );

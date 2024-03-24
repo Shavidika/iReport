@@ -1,6 +1,28 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
+import Article from "../models/Article";
+import { Roles } from "../constants";
+
+const changeRole = async (req: Request, res: Response, roles:string) => {
+  try {
+    const userDetails = { roles };
+
+    const { id: _id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(_id))
+      return res.status(404).send("No users with that id");
+
+    const updatedPost = await User.findByIdAndUpdate(_id, userDetails, {
+      upsert: true,
+      new: true,
+    });
+    res.json(updatedPost);
+  } catch (error) {
+    const err = error as Error;
+    res.status(500).send({ message: err.message });
+  }
+};
 
 const getUser = async (req: Request, res: Response) => {
   const userId = req.user?._id;
@@ -22,5 +44,20 @@ const getUsers = asyncHandler(async (req: Request, res: Response) => {
     })
   );
 });
+
+export const makeReporter = async (req: Request, res: Response) => {
+  const roles = Roles.Reporter;
+  changeRole(req, res, roles);
+};
+
+export const makeAdmin = async (req: Request, res: Response) => {
+  const roles = Roles.Admin;
+  changeRole(req, res, roles);
+};
+
+export const makeReader = async (req: Request, res: Response) => {
+  const roles = Roles.Reader;
+  changeRole(req, res, roles);
+}
 
 export { getUser, getUsers };

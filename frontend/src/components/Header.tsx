@@ -17,6 +17,8 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useAppSelector } from "../hooks/redux-hooks";
+import { ProfileInfoPopover } from "./profilePopover";
+import RequestReporter from "./reporterRequestPopup";
 
 // Avatar image URL
 const avatarImageUrl =
@@ -153,9 +155,9 @@ export default function Header() {
             </Transition>
           </Popover>
 
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to="/undermaintaince" className="text-sm font-semibold leading-6 text-gray-900">
             Pages
-          </a>
+          </Link>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Contact us
           </a>
@@ -169,19 +171,21 @@ export default function Header() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
           {basicUserInfo ? ( // Conditional rendering based on login status
             <Fragment>
-              <button
+              {/* <button
                 className=" text-red-500 text- font-semibold leading-6"
                 onClick={handleBeReporter}
               >
                 Switch to Reporting
-              </button>
-              <Link to="/profile">
+              </button> */}
+              <RequestReporter/>
+              {/* <Link to="/profile">
                 <img
                   className="h-10 w-10 rounded-full ml-20"
                   src={userProfileInfo?.userImage || avatarImageUrl}
                   alt="Avatar"
                 />
-              </Link>
+              </Link> */}
+              <ProfileInfoPopover />
             </Fragment>
           ) : (
             <Link

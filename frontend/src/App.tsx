@@ -15,17 +15,22 @@ import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
 import AboutUsPage from "./pages/AboutUs";
 import { ProfileInfoPopover } from "./components/profilePopover";
+import ReporterRequest from "./components/reporterRequestPopup";
+import RequestReporter from "./components/reporterRequestPopup";
+import UnderMaintainance from "./pages/UnderMaintainance";
+
 
 function App() {
   return (
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/test" element={<ProfileInfoPopover />} />
+        <Route path="/test" element={<ReporterRequest />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
         </Route>
+        <Route path="/undermaintaince" element={<UnderMaintainance/>}/>
         <Route path="/about" element={<AboutUs />} />
         <Route path="/" element={<NewsFeed />} />
         <Route

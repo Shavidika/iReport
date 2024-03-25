@@ -20,3 +20,9 @@
 /frontend/package-json
 
 /package-lock.json
+
+# IDE
+.vscode
+
+# other
+UI

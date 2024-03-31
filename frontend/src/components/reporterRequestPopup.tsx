@@ -8,6 +8,8 @@ const RequestReporter: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [cv, setCv] = useState<File | null>(null);
+  const [email, setEmail] = useState("");
 
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
@@ -23,6 +25,7 @@ const RequestReporter: React.FC = () => {
   };
 
   const checkRole = () => {
+    setEmail(basicUserInfo?.email||" ");
     if (basicUserInfo?.roles?.includes(Roles.Reporter)) {
       navigate("/reporting");
     } else {
@@ -96,6 +99,7 @@ const RequestReporter: React.FC = () => {
                     id="email"
                     className="border  w-full border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     placeholder="name@abcmail.com"
+                    value={email}
                     required
                   />
                 </div>
@@ -114,6 +118,7 @@ const RequestReporter: React.FC = () => {
                     id="cv"
                     className="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     required
+                    onChange={(e) => {}}
                   />
                 </div>
 

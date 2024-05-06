@@ -12,6 +12,7 @@ type ArticleInfo = {
   authorName: string;
   authorImage: string;
   authorId: string;
+  status: string;
 };
 
 type NewsApiState = {
@@ -26,11 +27,49 @@ const initialState: NewsApiState = {
   error: null,
 };
 
-export const getArticles = createAsyncThunk(
-  "articles/getAll",
+export const getSubmittedArticles = createAsyncThunk(
+  "articles/getSubmitted",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/articles/submitted/all");
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
+
+
+
+export const getAllArticles = createAsyncThunk(
+  "articles/all/get",
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/articles/all");
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+)
+
+export const getPublishedArticles = createAsyncThunk(
+  "articles/getAll",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/articles/published/all");
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
@@ -50,18 +89,32 @@ const articleSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getArticles.pending, (state) => {
+      .addCase(getPublishedArticles.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
       .addCase(
-        getArticles.fulfilled,
+        getPublishedArticles.fulfilled,
         (state, action: PayloadAction<ArticleInfo[]>) => {
           state.status = "idle";
           state.articles = action.payload;
         }
       )
-      .addCase(getArticles.rejected, (state, action) => {
+      .addCase(getPublishedArticles.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
+      })
+      .addCase(getAllArticles.pending,(state)=>{
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getAllArticles.fulfilled,
+        (state, action: PayloadAction<ArticleInfo[]>) => {
+          state.status = "idle";
+          state.articles = action.payload;
+        }
+      )
+      .addCase(getAllArticles.rejected,(state,action)=>{
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
       });

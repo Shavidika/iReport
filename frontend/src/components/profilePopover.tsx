@@ -61,6 +61,8 @@ export function ProfileInfoPopover() {
         placeholder={undefined}
         {...triggers}
         className="z-50 max-w-[24rem]"
+        onPointerEnterCapture={() => {}}
+        onPointerLeaveCapture={() => {}}
       >
         <div className="mb-2 flex items-center justify-between gap-4">
           <img
@@ -74,6 +76,8 @@ export function ProfileInfoPopover() {
               color="blue-gray"
               className="mb-0 flex items-start gap-2 font-medium"
               placeholder={undefined}
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
             >
               <span>{userProfileInfo?.name || "Annonymous"}</span>
             </Typography>
@@ -82,6 +86,8 @@ export function ProfileInfoPopover() {
               color="gray"
               className="font-normal mb-2 text-blue-gray-500"
               placeholder={undefined}
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
             >
               {userProfileInfo?.email || "No email"}
             </Typography>
@@ -90,6 +96,8 @@ export function ProfileInfoPopover() {
                 className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 onClick={handleLogout}
                 placeholder={undefined}
+                onPointerEnterCapture={() => {}}
+                onPointerLeaveCapture={() => {}}
               >
                 Logout
               </Button>

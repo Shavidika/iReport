@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
-import { getArticles } from "../slices/articleSlice";
+import { getPublishedArticles } from "../slices/articleSlice";
 import { getUser } from "../slices/authSlice";
 
 const NewsCard: React.FC = () => {
@@ -16,14 +16,14 @@ const NewsCard: React.FC = () => {
   const dispatch = useAppDispatch();
   const articles = useAppSelector((state) => state.articles.articles);
 
-  useEffect(() => {
-    articles.forEach((article) => {
-      dispatch(getUser(article.authorName));
-    });
-  }, [articles, dispatch]);
+  // useEffect(() => {
+  //   articles.forEach((article) => {
+  //     dispatch(getUser(article.authorName));
+  //   });
+  // }, [articles, dispatch]);
 
   useEffect(() => {
-    dispatch(getArticles());
+    dispatch(getPublishedArticles());
   }, []);
 
   const handleUpvote = (articleId: string) => {

@@ -78,6 +78,7 @@ const combineAuthor = async (article: any) => {
         upvotes: article.upVotes,
         downvotes: article.downVotes,
         comments: article.comments,
+        status: article.status
     };
 }
 
@@ -123,6 +124,14 @@ export const getDeclinedArticles = async (req: Request, res: Response) => {
     res.status(200).json(articles);
 }
 
+export const getAllArticles = async(req:Request,res:Response)=>{
+    const articles = await Article.find();
+    if (!articles) {
+        res.status(404).json({ message: "No articles found" });
+    }
+    res.status(200).json(articles);
+
+}
 
 export const getArticle = async (req: Request, res: Response) => {
     

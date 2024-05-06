@@ -2,6 +2,7 @@
 
 import express from "express";
 import {
+  getAllArticles,
   getPublishedArticles,
 } from "../controllers/articleController";
 
@@ -9,6 +10,8 @@ import {
 
 const router = express.Router();
 
-router.get("/all", getPublishedArticles);
+router.get("/published/all", getPublishedArticles);
+
+router.get("/all",getAllArticles);
 
 export default router;

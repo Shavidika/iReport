@@ -18,6 +18,7 @@ import { ProfileInfoPopover } from "./components/profilePopover";
 import ReporterRequest from "./components/reporterRequestPopup";
 import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
+import Dashboard from "./pages/Admin/Dashboard";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <>
       <NotificationBar />
       <Routes>
+        <Route path="/admin" element={<Dashboard />} />
         <Route path="/test" element={<ReporterRequest />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />

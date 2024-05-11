@@ -4,6 +4,7 @@ import express from "express";
 import {
   getAllArticles,
   getPublishedArticles,
+  getArticle
 } from "../controllers/articleController";
 
 
@@ -11,6 +12,8 @@ import {
 const router = express.Router();
 
 router.get("/published/all", getPublishedArticles);
+
+router.get("/:id",getArticle);
 
 router.get("/all",getAllArticles);
 

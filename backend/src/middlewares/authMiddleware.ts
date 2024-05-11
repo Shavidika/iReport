@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import User from "../models/User";
 import asyncHandler from "express-async-handler";
-import { AuthenticationError, errorHandler } from "./errorMiddleware";
+import { AuthenticationError } from "./errorMiddleware";
 
 const authenticate = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

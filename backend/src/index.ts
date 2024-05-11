@@ -14,7 +14,7 @@ import openRouter from "./routes/openRouter";
 
 dotenv.config();
 
-export const app = express();
+const app = express();
 
 interface UserBasicInfo {
     _id: String;

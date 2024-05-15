@@ -33,12 +33,12 @@ router.get("/all",getAllArticles);
 
 router.post(
   "/draft",
-  authorize([Roles.Reporter, Roles.Admin]),
+  authorize([Roles.Reporter]),
   createEmptyDraft
 );
 router.put(
   "/submit/:id",
-  authorize([Roles.Reporter, Roles.Admin]),
+  authorize([Roles.Reporter]),
   submitArticle
 );
 router.put("/draft/:id", authorize([Roles.Reporter]), saveDraft);

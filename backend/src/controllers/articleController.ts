@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Article from '../models/Article';
 import User from '../models/User';
 import mongoose from 'mongoose';
+import exp from 'constants';
 
 // const saveArticle = async (req: Request, res: Response, title:string , content:string, articleImage:string,status:string, authorID:string | undefined) => {
 //     const article = await Article.create({
@@ -105,7 +106,8 @@ export const getSubmittedArticles = async (req: Request, res: Response) => {
 
 
 export const getDrafts = async (req: Request, res: Response) => {
-    const drafts = await Article.find({status: "draft"});
+  const userId = req.user?._id;
+    const drafts = await Article.find({status: "draft",authorID:userId});
 
     if (!drafts) {
       res.status(404).json({ message: "No articles found" });
@@ -140,6 +142,10 @@ export const getArticle = async (req: Request, res: Response) => {
   res.status(200).json(article);   
 }
 
+export const saveDraft =async(req:Request,res:Response)=>{
+    const status = "draft";
+    updateArticle(req, res, status);
+}
 
 export const submitArticle = async (req: Request, res: Response) => {
     const status = "submitted";

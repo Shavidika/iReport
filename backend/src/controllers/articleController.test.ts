@@ -3,7 +3,7 @@ import {
   getDeclinedArticles,
   getAllArticles,
   getArticle,
-  
+  submitArticle,
   updateArticle,
   getSubmittedArticles,
   getDrafts
@@ -12,6 +12,8 @@ import Article from "../models/Article";
 import User from "../models/User";
 import mongoose, { Schema, Document } from "mongoose";
 import { Request, Response } from "express";
+
+
 
 jest.mock("../models/Article");
 jest.mock("../models/User");
@@ -40,6 +42,8 @@ describe("Article Controller", () => {
       json: jest.fn(),
     };
   });
+
+  
 
   describe("getPublishedArticles", () => {
     it("should return all published articles with author details", async () => {

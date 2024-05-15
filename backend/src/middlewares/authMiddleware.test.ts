@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
-import { authenticate } from './authMiddleware';// import your middleware
+import { authenticate } from './authMiddleware';
 import { AuthenticationError } from './errorMiddleware';
 import supertest from 'supertest';
 import express from 'express';

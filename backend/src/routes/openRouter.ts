@@ -4,7 +4,8 @@ import express from "express";
 import {
   getAllArticles,
   getPublishedArticles,
-  getArticle
+  getArticle,
+  getArticleByAuthor
 } from "../controllers/articleController";
 
 
@@ -12,6 +13,8 @@ import {
 const router = express.Router();
 
 router.get("/published/all", getPublishedArticles);
+
+router.get("/author/:id", getArticleByAuthor);
 
 router.get("/:id",getArticle);
 

@@ -6,7 +6,7 @@ import {
   submitArticle,
   saveDraft,
   deleteDraft,
-  getArticleByUser,
+  getArticleByAuthor,
   getArticleByCategory,
   getArticleBySearch,
   upvoteArticle,
@@ -46,11 +46,12 @@ router.put("/publish/:id", authorize([Roles.Admin]), publishArticle);
 router.put("/decline/:id", authorize([Roles.Admin]), declineArticle);
 router.delete("/delete/:id", authorize([Roles.Reporter]), deleteDraft);
 
-router.get("/user/:id", getArticleByUser);
+
 router.get("/category/:category", getArticleByCategory);
 router.get("/search", getArticleBySearch);
 
-router.post("/:id/react", upvoteArticle);
+router.post("/:id/upvote", upvoteArticle);
+router.post("/:id/downvote", downvoteArticle);
 router.post("/:id/react", downvoteArticle);
 router.post("/:id/comment", commentArticle);
 

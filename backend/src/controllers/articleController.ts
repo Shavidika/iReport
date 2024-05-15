@@ -273,7 +273,13 @@ export const deleteDraft = async (req: Request, res: Response) => {
 
 }
 
-export const getArticleByUser = async (req: Request, res: Response) => {
+export const getArticleByAuthor = async (req: Request, res: Response) => {
+  const { id: _id } = req.params;
+  const articles = await Article.find({ authorID: _id, status: "published" });
+  if (!articles) {
+    res.status(404).json({ message: "No articles found" });
+  }
+  res.status(200).json(articles);
 
 }
 
@@ -283,13 +289,139 @@ export const getArticleByCategory = async (req: Request, res: Response) => {
 
 export const getArticleBySearch = async (req: Request, res: Response) => {
 
+
+}
+
+const idToName = async (array:Array<String>)=>{
+  const newArray = await Promise.all(array.map(async (id:String)=>{
+    const user = await User.findById(id);
+    return user?.name;
+  }));
+  const filteredArray = newArray.filter((item): item is String => item !== undefined);
+
+  return filteredArray;
 }
 
 export const upvoteArticle = async (req: Request, res: Response) => {
+  const userID = req.user?._id;
+  const articleID = req.params.id;   
+  let upVotedNames:Array<String>;
+  let downVotedNames:Array<String>;
+  
+  try{
+    const article = await Article.findById(articleID);
+    if (!userID || !articleID || article?.status != "published") {
+      res.status(400).json({message: "User ID or Article ID is missing"});
+      return;
+    }
+    if(article){
+      if(!article.upVotes){
+        article.upVotes = [];
+      }
+      if(!article.downVotes){
+        article.downVotes = [];
+      }
 
+      if(article.upVotes.includes(userID)){
+        article.upVotes = article.upVotes.filter(id => id != userID);
+        await article.save();
+        
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+        
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }else if(article.downVotes.includes(userID)){
+        article.downVotes = article.downVotes.filter(id => id != userID);
+        article.upVotes.push(userID);
+        await article.save();
+
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }
+      else{
+        article.upVotes.push(userID);
+        await article.save();
+
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }
+    }
+    else{
+      res.status(404).json({message: "Article not found"});
+    }
+  }
+  catch(error){
+    const err = error as Error;
+    res.status(500).json({message: err.message});
+  }
 }
 
 export const downvoteArticle = async (req: Request, res: Response) => {
+  const userID = req.user?._id;
+  const articleID = req.params.id;   
+  let upVotedNames:Array<String>;
+  let downVotedNames:Array<String>;
+  
+  try{
+    const article = await Article.findById(articleID);
+    if (!userID || !articleID || article?.status != "published") {
+      res.status(400).json({message: "User ID or Article ID is missing"});
+      return;
+    }
+    if(article){
+      if(!article.upVotes){
+        article.upVotes = [];
+      }
+      if(!article.downVotes){
+        article.downVotes = [];
+      }
+
+      if(article.downVotes.includes(userID)){
+        article.downVotes = article.downVotes.filter(id => id != userID);
+        await article.save();
+        
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+        
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }else if(article.upVotes.includes(userID)){
+        article.upVotes = article.upVotes.filter(id => id != userID);
+        article.downVotes.push(userID);
+        await article.save();
+
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }
+      else{
+        article.downVotes.push(userID);
+        await article.save();
+
+        upVotedNames = await idToName(article.upVotes);
+        downVotedNames = await idToName(article.downVotes);
+
+        res.status(200).json({upVotedNames,downVotedNames});
+        return;
+      }
+    }
+    else{
+      res.status(404).json({message: "Article not found"});
+    }
+  }
+  catch(error){
+    const err = error as Error;
+    res.status(500).json({message: err.message});
+  }
 
 }
 

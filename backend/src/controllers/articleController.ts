@@ -25,7 +25,7 @@ import mongoose from 'mongoose';
 //     }
 // }
 
-const updateArticle = async (req: Request, res: Response, status: string) => {
+export const updateArticle = async (req: Request, res: Response, status: string) => {
 
     try {
         const { title, content, articleImage } = req.body;
@@ -130,18 +130,16 @@ export const getAllArticles = async(req:Request,res:Response)=>{
         res.status(404).json({ message: "No articles found" });
     }
     res.status(200).json(articles);
-
 }
 
 export const getArticle = async (req: Request, res: Response) => {
-    
+  const { id: _id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).json({message: "No article with this id"});
+  const article = await Article.findById(_id);
+  res.status(200).json(article);   
 }
 
-export const saveDraft = async (req: Request, res: Response) => {
-    //const sameArticle = await Article.findOne({ title });
-    const status = "draft";
-    updateArticle(req, res, status);
-}; 
 
 export const submitArticle = async (req: Request, res: Response) => {
     const status = "submitted";
@@ -164,7 +162,7 @@ export const publishArticle = async (req: Request, res: Response) => {
             new: true,
           });
           // console.log(req.user?.roles);
-          res.json(updatedPost);
+          res.status(200).json(updatedPost);
 
         } catch (error) {
         const err = error as Error;

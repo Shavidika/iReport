@@ -105,7 +105,7 @@ export const declineArticle = createAsyncThunk(
     try {
       console.log(articleId);
       const response = await axiosInstance.put(`/article/decline/${articleId}`);
-      return response.data;
+      return response.status;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         const errorResponse = error.response.data;
@@ -124,7 +124,7 @@ export const publishArticle = createAsyncThunk(
     try {
       console.log(articleId);
       const response = await axiosInstance.put(`/article/publish/${articleId}`);
-      return response.data;
+      return response.status;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         const errorResponse = error.response.data;

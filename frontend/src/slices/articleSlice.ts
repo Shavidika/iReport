@@ -31,7 +31,7 @@ export const getSubmittedArticles = createAsyncThunk(
   "articles/getSubmitted",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/articles/submitted/all");
+      const response = await axiosInstance.get("/article/submitted/all");
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
@@ -45,7 +45,23 @@ export const getSubmittedArticles = createAsyncThunk(
   }
 );
 
+export const getDeclinedArticles = createAsyncThunk(
+  "articles/getDeclined",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get("/article/declined/all");
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
 
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
 
 export const getAllArticles = createAsyncThunk(
   "articles/all/get",
@@ -70,6 +86,44 @@ export const getPublishedArticles = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/articles/published/all");
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const declineArticle = createAsyncThunk(
+  "articles/decline",
+  async (articleId: string, { rejectWithValue }) => {
+    try {
+      console.log(articleId);
+      const response = await axiosInstance.put(`/article/decline/${articleId}`);
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const publishArticle = createAsyncThunk(
+  "articles/publish",
+  async (articleId: string, { rejectWithValue }) => {
+    try {
+      console.log(articleId);
+      const response = await axiosInstance.put(`/article/publish/${articleId}`);
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
@@ -115,6 +169,30 @@ const articleSlice = createSlice({
         }
       )
       .addCase(getAllArticles.rejected,(state,action)=>{
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
+      })
+      .addCase(getSubmittedArticles.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getSubmittedArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+        state.status = "idle";
+        state.articles = action.payload;
+      })
+      .addCase(getSubmittedArticles.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
+      })
+      .addCase(getDeclinedArticles.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getDeclinedArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+        state.status = "idle";
+        state.articles = action.payload;
+      })
+      .addCase(getDeclinedArticles.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
       });

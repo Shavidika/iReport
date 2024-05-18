@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Admin/Sidebar';
-import NewsSection from './Submitted';
-import ReportersSection from './ReporterSection';
-import OverallSection from './OverallSection';
+import NewsSection from './SubmittedArticles';
+import ReportersSection from './PublishedArticles';
+import OverallSection from './DeclinedArticles';
 import Header from '../../components/Header';
 
 export default function Dashboard() {

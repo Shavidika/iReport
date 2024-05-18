@@ -1,5 +1,5 @@
 // ReportersSection.tsx
-import React, { useDeferredValue, useEffect } from 'react';
+import React, { useDeferredValue, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { getPublishedArticles } from '../../slices/articleSlice';
 import ArticleCard from '../../components/News/articleCard';
@@ -7,10 +7,13 @@ import ArticleCard from '../../components/News/articleCard';
 const ReportersSection = () => {
   const dispatch = useAppDispatch();
   const publishedArticles = useAppSelector((state) => state.articles.articles);
+  const [articleStatusChanged, setArticleStatusChanged] = useState(false);
+
   
   useEffect(() => {
     dispatch(getPublishedArticles());
-  }, []);
+    setArticleStatusChanged(false);
+  }, [articleStatusChanged]);
 
   return (
     <section className="bg-gray-100 ">
@@ -19,6 +22,7 @@ const ReportersSection = () => {
           {publishedArticles.map((item) => (
             <ArticleCard
               item={item}
+              onArticleStatusChange={() => setArticleStatusChanged(true)}
             />
           ))}
         </div>

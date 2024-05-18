@@ -19,13 +19,14 @@ import ReporterRequest from "./components/reporterRequestPopup";
 import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
 import Dashboard from "./pages/Admin/Dashboard";
+import ReporterDashboard from "./pages/Reporter/ReporterDashboard";
 
 function App() {
   return (
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/test" element={<ReporterRequest />} />
+        <Route path="/reporter" element={<ReporterDashboard />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />

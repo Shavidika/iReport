@@ -155,7 +155,10 @@ export default function Header() {
             </Transition>
           </Popover>
 
-          <Link to="/undermaintaince" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            to="/undermaintaince"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Pages
           </Link>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -169,7 +172,7 @@ export default function Header() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
-          {basicUserInfo ? ( // Conditional rendering based on login status
+          {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
             <Fragment>
               {/* <button
                 className=" text-red-500 text- font-semibold leading-6"
@@ -177,7 +180,7 @@ export default function Header() {
               >
                 Switch to Reporting
               </button> */}
-              <RequestReporter/>
+              <RequestReporter />
               {/* <Link to="/profile">
                 <img
                   className="h-10 w-10 rounded-full ml-20"
@@ -188,12 +191,42 @@ export default function Header() {
               <ProfileInfoPopover />
             </Fragment>
           ) : (
-            <Link
-              to="/login"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </Link>
+            <div>
+              {basicUserInfo?.roles.includes("ADMIN") ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Link
+                    to="/admin"
+                    className="text-red-500 text- mt-2 font-semibold leading-6"
+                  >
+                    Admin Dashboard
+                  </Link>
+                  <ProfileInfoPopover />
+                </div>
+              ) : (
+                <div>
+                  {basicUserInfo?.roles.includes("REPORTER") ? (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <Link
+                        to="/reporter"
+                        className="text-red-500 text- mt-2 font-semibold leading-6"
+                      >
+                        Reporter Dashboard
+                      </Link>
+                      <ProfileInfoPopover />
+                    </div>
+                  ) : (
+                    <div>
+                      <Link
+                        to="/login"
+                        className="text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Log in <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </nav>

@@ -99,13 +99,12 @@ export const getPublishedArticles = createAsyncThunk(
   }
 );
 
-export const declineArticle = createAsyncThunk(
-  "articles/decline",
-  async (articleId: string, { rejectWithValue }) => {
+export const getDraftArticles = createAsyncThunk(
+  "articles/getDraft",
+  async (_, { rejectWithValue }) => {
     try {
-      console.log(articleId);
-      const response = await axiosInstance.put(`/article/decline/${articleId}`);
-      return response.status;
+      const response = await axiosInstance.get("/article/drafts/all");
+      return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         const errorResponse = error.response.data;
@@ -136,6 +135,43 @@ export const publishArticle = createAsyncThunk(
     }
   }
 );
+
+export const declineArticle = createAsyncThunk(
+  "articles/decline",
+  async (articleId: string, { rejectWithValue }) => {
+    try {
+      console.log(articleId);
+      const response = await axiosInstance.put(`/article/decline/${articleId}`);
+      return response.status;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+);
+
+export const createEmptyDraft = createAsyncThunk(
+  "articles/createDraft",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/article/draft");
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+
+        return rejectWithValue(errorResponse);
+      }
+
+      throw error;
+    }
+  }
+)
 
 const articleSlice = createSlice({
   name: "news",
@@ -195,7 +231,19 @@ const articleSlice = createSlice({
       .addCase(getDeclinedArticles.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
-      });
+      }).
+      addCase(getDraftArticles.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getDraftArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+        state.status = "idle";
+        state.articles = action.payload;
+      })
+      .addCase(getDraftArticles.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
+      })
   },
 });
 

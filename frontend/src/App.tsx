@@ -6,7 +6,7 @@ import SignupPage from "./pages/Register_";
 import DefaultLayout from "./layouts/DefaultLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Profile from "./pages/Profile";
-import NewsCard from "./components/newsCard";
+import NewsCard from "./components/News/newsList";
 import NewsFeed from "./pages/NewsFeed";
 import NotificationBar from "./components/Notification/NotificationBar";
 import { Roles } from "./constants";
@@ -20,19 +20,17 @@ import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
 import Dashboard from "./pages/Admin/Dashboard";
 
-
 function App() {
   return (
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/admin" element={<Dashboard />} />
         <Route path="/test" element={<ReporterRequest />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
         </Route>
-        <Route path="/undermaintaince" element={<UnderMaintainance/>}/>
+        <Route path="/undermaintaince" element={<UnderMaintainance />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/" element={<NewsFeed />} />
         <Route
@@ -46,6 +44,7 @@ function App() {
         </Route>
 
         <Route element={<ProtectedLayout allowedRoles={[Roles.Admin]} />}>
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
         <Route path="*" element={<NotFound />} />

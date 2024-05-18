@@ -101,7 +101,9 @@ export const getSubmittedArticles = async (req: Request, res: Response) => {
         res.status(404).json({ message: "No articles found" });
     }
 
-    res.status(200).json(articles);
+    // res.status(200).json(articles);
+    const articlesWithAuthor = await Promise.all(articles.map(combineAuthor));
+    res.status(200).json(articlesWithAuthor);
 } 
 
 
@@ -123,7 +125,9 @@ export const getDeclinedArticles = async (req: Request, res: Response) => {
       res.status(404).json({ message: "No articles found" });
     }
 
-    res.status(200).json(articles);
+    // res.status(200).json(articles);
+    const articlesWithAuthor = await Promise.all(articles.map(combineAuthor));
+    res.status(200).json(articlesWithAuthor);
 }
 
 export const getAllArticles = async(req:Request,res:Response)=>{
@@ -131,7 +135,9 @@ export const getAllArticles = async(req:Request,res:Response)=>{
     if (!articles) {
         res.status(404).json({ message: "No articles found" });
     }
-    res.status(200).json(articles);
+    // res.status(200).json(articles);
+    const articlesWithAuthor = await Promise.all(articles.map(combineAuthor));
+    res.status(200).json(articlesWithAuthor);
 }
 
 export const getArticle = async (req: Request, res: Response) => {

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import React from "react";
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { useAppSelector } from "../../hooks/redux-hooks";
-
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { declineArticle, publishArticle } from "../../slices/articleSlice";
+import { toast } from 'react-toastify'; 
 interface ArticleCardProps {
   item: any;
 }
@@ -13,6 +14,9 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ item }) => {
   const [isUpvoteHovered, setIsUpvoteHovered] = useState<boolean>(false);
   const [isDownvoteHovered, setIsDownvoteHovered] = useState<boolean>(false);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
+
+  const dispatch = useAppDispatch();
+  const articles = useAppSelector((state) => state.articles.articles);
 
   const avatarImageUrl =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png";
@@ -34,6 +38,28 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ item }) => {
       setDownvotedArticles(downvotedArticles.filter((id) => id !== articleId));
     }
   };
+
+  const handleDecline = () => {
+    dispatch(declineArticle(item.id));
+  };
+
+  const handlePublish = () => {
+    dispatch(publishArticle(item.id));
+  };
+
+  // const DeclineArticle =async (id:string) => {
+  //   const response = await dispatch(declineArticle(id));
+
+  //   if (response.status === 200) {
+  //     toast.success("The article successfully unpublished");
+  //     setArticles(articles.filter(article => article.id !== id));
+  //   } else {
+  //     toast.error("Failed to unpublish the article");
+  //   }
+  
+  //   console.log(response);
+  //   return;
+  // };
 
   return (
     <article
@@ -69,20 +95,35 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ item }) => {
         <div className="flex items-center space-x-4">
           {basicUserInfo?.roles.includes("ADMIN") ? (
             <div>
-              {!item.published ? (
-                <button className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+              {item.status == "published" ? (
+                <button 
+                onClick={handleDecline}
+                className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                   Unpublish
                 </button>
               ) : (
                 <div>
-                  {item.Submitted ?(
-                    <button className="px-3  py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-0 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                  {item.status == "submitted" ?(
+                    <div className="flex items-center space-x-4">
+                    <button
+                    onClick={handlePublish} 
+                    className="px-3  py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-0 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                       Publish
                     </button>
-                  ):(
-                    <button className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                    <button
+                    onClick={handleDecline}
+                    className="px-3  py-2 text-xs font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-0 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                       Decline
                     </button>
+                    </div>
+                  ):(
+                    <div>
+                    <button 
+                    onClick={handlePublish}
+                    className="px-3  py-2 text-xs font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-0 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                      Publish
+                    </button>
+                    </div>
                   )}
                 </div>
               )}

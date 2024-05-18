@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import NewsCard from "../components/newsCard";
+import NewsCard from "../components/News/newsList";
 
 export default function NewsFeed() {
   return (

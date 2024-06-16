@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import { MdOutlineSportsSoccer } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -19,6 +19,7 @@ import {
 import { useAppSelector } from "../hooks/redux-hooks";
 import { ProfileInfoPopover } from "./profilePopover";
 import RequestReporter from "./reporterRequestPopup";
+import { useLocation } from "react-router-dom";
 
 // Avatar image URL
 const avatarImageUrl =
@@ -60,13 +61,33 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
+  const [dashboardOpened, setDashboardOpened] = useState(true);
+  const [navigatorText, setNavigatorText] = useState("Dashboard");
+  const location = useLocation();
+
+  const handleDashboardOpen = () => {
+    console.log(dashboardOpened);
+    setDashboardOpened(!dashboardOpened);
+  };
 
   const handleBeReporter = () => {
     setIsLoggedIn(false);
   };
 
+  useEffect(() => {
+    if(location.pathname === "/" && basicUserInfo?.roles.includes("ADMIN")){
+      setNavigatorText("Admin Dashboard");
+    }else if (location.pathname === "/" && basicUserInfo?.roles.includes("REPORTER")){
+      setNavigatorText("Reporter Dashboard");
+    }else if (location.pathname === "/admin"|| location.pathname === "/reporter"){
+      setNavigatorText(" ");
+    } else{
+      setNavigatorText(" ");
+    }
+  }, [location]);
+
   return (
-    <header className="bg-white">
+    <header className="fixed top-0 left-0 w-full bg-white z-10">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -197,8 +218,9 @@ export default function Header() {
                   <Link
                     to="/admin"
                     className="text-red-500 text- mt-2 font-semibold leading-6"
+                    onClick={handleDashboardOpen}
                   >
-                    Admin Dashboard
+                    {navigatorText}
                   </Link>
                   <ProfileInfoPopover />
                 </div>
@@ -209,8 +231,9 @@ export default function Header() {
                       <Link
                         to="/reporter"
                         className="text-red-500 text- mt-2 font-semibold leading-6"
+                        onAbort={handleDashboardOpen}
                       >
-                        Reporter Dashboard
+                        {navigatorText}
                       </Link>
                       <ProfileInfoPopover />
                     </div>

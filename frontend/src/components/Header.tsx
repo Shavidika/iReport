@@ -171,7 +171,7 @@ export default function Header() {
                 className=" text-red-500 text- font-semibold leading-6"
                 onClick={handleBeReporter}
               >
-                Switch to Reporting
+               <Link to="/submission">report a NEWS</Link>
               </button>
               <Link to="/profile">
                 <img

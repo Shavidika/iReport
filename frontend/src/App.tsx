@@ -12,16 +12,18 @@ import NotificationBar from "./components/Notification/NotificationBar";
 import { Roles } from "./constants";
 import UserSettings from "./pages/UserSettings";
 import NotFound from "./pages/NotFound";
+import NewsSubmission from "./pages/NewsSubmission"
 
 function App() {
   return (
     <>
       <NotificationBar />
       <Routes>
-        {/* <Route path="/test" element={<NewsFeed />} /> */}
+        <Route path="/test" element={<NewsSubmission />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
+          <Route path="/submission" element={<NewsSubmission />} />
         </Route>
         <Route path="/" element={<NewsFeed />} />
         <Route

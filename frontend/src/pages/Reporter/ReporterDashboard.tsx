@@ -1,6 +1,4 @@
-// src/components/Dashboard.tsx
 import React, { useState } from 'react';
-
 import DraftArticles from './DraftArticles';
 import SubmittedArticles from './SubmittedArticles';
 import Sidebar from '../../components/Reporter/Sidebar';
@@ -14,8 +12,8 @@ const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
   const articles = useAppSelector((state) => state.articles.articles);
 
-  const handleComposeClick =async () => {
-    const response= await dispatch(createEmptyDraft());
+  const handleComposeClick = async () => {
+    const response = await dispatch(createEmptyDraft());
     if (createEmptyDraft.fulfilled.match(response)) {
       const id = response.payload.id;
       console.log(`New draft created with id ${id}`);

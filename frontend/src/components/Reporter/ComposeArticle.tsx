@@ -1,6 +1,6 @@
-// src/components/ComposeArticleModal.tsx
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { submitArticle } from '../../slices/articleSlice';
 
 interface ComposeArticleModalProps {
   onClose: () => void;
@@ -10,8 +10,11 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [error, setError] = useState('');
   const dispatch = useAppDispatch();
   const articles = useAppSelector((state) => state.articles.articles);
+  
+  const latestArticleId = articles.length > 0 ? articles[articles.length - 1].id : '';
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -19,15 +22,26 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
     }
   };
 
-  const handleSubmit = () => {
-    
-    onClose();
+  const handleSubmit = async () => {
+    if (!title || !content) {
+      setError('Title and content cannot be empty.');
+      return;
+    }
+
+    const response = await dispatch(submitArticle({ id: latestArticleId, title, content }));
+    if (submitArticle.fulfilled.match(response)) {
+      console.log(`Article submitted with id ${latestArticleId}`);
+      onClose();
+    } else {
+      setError('Failed to submit the article. Please try again.');
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-2xl font-semibold mb-6">Compose Article</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Title</label>
           <input

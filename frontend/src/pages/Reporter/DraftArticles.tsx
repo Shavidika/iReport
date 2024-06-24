@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { getAllArticles, getDraftArticles, getPublishedArticles, getSubmittedArticles } from '../../slices/articleSlice';
+import { getAllArticles, getDeclinedArticles, getDraftArticles, getPublishedArticles, getSubmittedArticles } from '../../slices/articleSlice';
 
 const DraftArticles: React.FC = () => {
 
@@ -19,8 +19,8 @@ const DraftArticles: React.FC = () => {
       <ul>
         {articles.map((draft) => (
           <li key={draft.id} className="mb-4 p-4 border rounded-lg bg-white shadow">
-            <h3 className="text-xl font-bold">{draft.title}</h3>
-            <p className="text-gray-700">{draft.content}</p>
+            <h3 className="text-xl font-bold">{draft.title == null ? (<>No title</>):(<>{draft.title}</>)}</h3>
+            <p className="text-gray-700">{draft.content == null ? (<>No title</>):(<>{draft.content}</>)}</p>
           </li>
         ))}
       </ul>

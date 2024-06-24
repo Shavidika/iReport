@@ -24,7 +24,7 @@ import { Roles } from "../constants";
 
 const router = express.Router();
 
-router.get("/submitted/all", authorize([Roles.Admin]), getSubmittedArticles);
+router.get("/submitted/all", authorize([Roles.Admin,Roles.Reporter]), getSubmittedArticles);
 // router.get("published/all", getPublishedArticles);
 router.get("/drafts/all", authorize([Roles.Reporter]), getDrafts);
 router.get("/declined/all", authorize([Roles.Admin]), getDeclinedArticles);

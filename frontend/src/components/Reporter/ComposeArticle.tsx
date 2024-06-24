@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { submitArticle } from '../../slices/articleSlice';
+import { submitArticle, deleteArticle, saveDraftArticle } from '../../slices/articleSlice';
 
 interface ComposeArticleModalProps {
   onClose: () => void;
@@ -37,6 +37,26 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
     }
   };
 
+  const handleSaveDraft = async () => {
+    const response = await dispatch(saveDraftArticle({ id: latestArticleId, title, content }));
+    if (saveDraftArticle.fulfilled.match(response)) {
+      console.log(`Article saved as draft with id ${latestArticleId}`);
+      onClose();
+    } else {
+      setError('Failed to save the article as draft. Please try again.');
+    }
+  };
+
+  const handleCancel = async () => {
+    const response = await dispatch(deleteArticle(latestArticleId));
+    if (deleteArticle.fulfilled.match(response)) {
+      console.log(`Article deleted with id ${latestArticleId}`);
+      onClose();
+    } else {
+      setError('Failed to delete the article. Please try again.');
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
@@ -70,10 +90,16 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
         </div>
         <div className="flex justify-end">
           <button
-            onClick={onClose}
-            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg mr-2 transition duration-300"
+            onClick={handleCancel}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg mr-2 transition duration-300"
           >
             Cancel
+          </button>
+          <button
+            onClick={handleSaveDraft}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg mr-2 transition duration-300"
+          >
+            Save as Draft
           </button>
           <button
             onClick={handleSubmit}

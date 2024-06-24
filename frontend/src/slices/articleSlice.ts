@@ -97,6 +97,38 @@ export const submitArticle = createAsyncThunk(
   }
 );
 
+export const deleteArticle = createAsyncThunk(
+  "articles/delete",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(`/article/delete/${id}`);
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+        return rejectWithValue(errorResponse);
+      }
+      throw error;
+    }
+  }
+);
+
+export const saveDraftArticle = createAsyncThunk(
+  "articles/saveDraft",
+  async ({ id, title, content }: { id: string, title: string, content: string }, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.put(`/article/draft/${id}`, { title, content });
+      return response.data;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response) {
+        const errorResponse = error.response.data;
+        return rejectWithValue(errorResponse);
+      }
+      throw error;
+    }
+  }
+);
+
 export const getPublishedArticles = createAsyncThunk(
   "articles/getAll",
   async (_, { rejectWithValue }) => {
@@ -274,6 +306,16 @@ const articleSlice = createSlice({
         }
       })
       .addCase(submitArticle.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
+      })
+      .addCase(saveDraftArticle.fulfilled, (state, action: PayloadAction<ArticleInfo>) => {
+        const index = state.articles.findIndex(article => article.id === action.payload.id);
+        if (index !== -1) {
+          state.articles[index] = action.payload;
+        }
+      })
+      .addCase(saveDraftArticle.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
       });

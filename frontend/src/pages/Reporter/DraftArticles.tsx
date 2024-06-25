@@ -61,8 +61,8 @@ const DraftArticles: React.FC<DraftArticlesProps> = ({ articles, onDraftClick, o
               onClick={() => onDraftClick({ id: draft.id, title: draft.title ?? '', content: draft.content ?? '' })}
             >
               <div className="mr-10">
-                <h3 className="text-xl font-bold">{draft.title ?? 'No title'}</h3>
-                <p className="text-gray-700">{draft.content?.substring(0, 100) ?? 'No content'}...</p>
+                <h3 className="text-xl font-bold">{draft.title ? `${draft.title.substring(0, 100)}` : "No title"}</h3>
+                <p className="text-gray-700">{draft.content ? `${draft.content.substring(0, 70)}...` : "No title"}</p>
               </div>
               <div>
                 <button

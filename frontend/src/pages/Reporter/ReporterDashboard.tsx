@@ -79,19 +79,19 @@ const Dashboard: React.FC = () => {
           </svg>
         </button>
       </div> */}
-      <div className="flex mt-10 h-screen bg-gray-100 justify-center items-center w-screen">
-        <div className="flex gap-4">
+      <div className="flex mt-10 h-screen  bg-gray-100 justify-center items-center ">
+        <div className="flex gap-10 w-full px-10">
           <DraftArticles
             articles={draftArticles}
             onDraftClick={handleDraftClick}
             onComposeClick={handleComposeClick}
-            className="w-1/2"
+            className="w-1/2 max-h-screen overflow-y-auto"
           />
           <SubmittedArticles
             articles={submittedArticles}
             onSubmittedClick={handleSubmittedClick}
             onComposeClick={handleComposeClick}
-            className="w-1/2"
+            className="w-1/2 max-h-screen overflow-y-scroll"
           />
         </div>
         {isComposeOpen && (

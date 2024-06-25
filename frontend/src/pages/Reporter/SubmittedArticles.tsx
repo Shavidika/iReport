@@ -1,25 +1,50 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { getSubmittedArticles, deleteArticle } from '../../slices/articleSlice';
-import { ArticleInfo } from '../../slices/articleSlice';
+import React, { useState, useEffect } from "react";
+import { useAppDispatch } from "../../hooks/redux-hooks";
+import {
+  getSubmittedArticles,
+  deleteArticle,
+  ArticleInfo,
+} from "../../slices/articleSlice";
+import ArticlePopup from "../../components/Reporter/ArticlePopup";
 
 interface SubmittedArticlesProps {
   articles: ArticleInfo[];
-  onSubmittedClick: (article: { id: string, title: string, content: string }) => void;
+  onSubmittedClick: (article: {
+    id: string;
+    title: string;
+    content: string;
+  }) => void;
   onComposeClick: () => void;
   className?: string;
 }
 
-const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({ articles, onSubmittedClick, onComposeClick, className }) => {
+const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
+  articles,
+  onSubmittedClick,
+  onComposeClick,
+  className,
+}) => {
   const dispatch = useAppDispatch();
+  const [selectedArticle, setSelectedArticle] = useState<{
+    id: string;
+    title: string;
+    content: string;
+  } | null>(null);
 
   useEffect(() => {
     dispatch(getSubmittedArticles());
-  }, [dispatch,articles]);
+  }, [dispatch]);
 
-  const handleDelete = (event: React.MouseEvent, id: string) => {
-    event.stopPropagation();
-    dispatch(deleteArticle(id));
+  const handleArticleClick = (article: {
+    id: string;
+    title: string;
+    content: string;
+  }) => {
+    setSelectedArticle(article);
+  };
+
+  const handlePopupClose = () => {
+    setSelectedArticle(null);
   };
 
   return (
@@ -47,7 +72,9 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({ articles, onSubmi
         </button>
       </div>
       <div className="m-5 mt-2 overflow-auto">
-        <h2 className="text-2xl font-bold text-center bg-gray-200 mb-4">Submitted Articles</h2>
+        <h2 className="text-2xl font-bold text-center bg-gray-200 mb-4">
+          Submitted Articles
+        </h2>
         {articles.length === 0 ? (
           <div className="flex flex-col items-center justify-center">
             <p>No submitted articles available</p>
@@ -58,11 +85,21 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({ articles, onSubmi
             <div
               key={index}
               className="flex justify-between items-center border-b border-gray-200 py-2 hover:bg-gray-200 cursor-pointer m-2 p-3 rounded-md"
-              onClick={() => onSubmittedClick({ id: article.id, title: article.title ?? '', content: article.content ?? '' })}
+              onClick={() =>
+                handleArticleClick({
+                  id: article.id,
+                  title: article.title ?? "",
+                  content: article.content ?? "",
+                })
+              }
             >
               <div className="mr-10">
-                <h3 className="text-xl font-bold">{article.title ?? 'No title'}</h3>
-                <p className="text-gray-700">{article.content?.substring(0, 100) ?? 'No content'}...</p>
+                <h3 className="text-xl font-bold">
+                  {article.title ? `${article.title.substring(0, 100)}...` : "No title"}
+                </h3>
+                <p className="text-gray-700">
+                  {article.content ? `${article.content.substring(0, 70)}...` : "No content"}
+                </p>
               </div>
               {/* <div>
                 <button
@@ -89,6 +126,9 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({ articles, onSubmi
           ))
         )}
       </div>
+      {selectedArticle && (
+        <ArticlePopup article={selectedArticle} onClose={handlePopupClose} />
+      )}
     </div>
   );
 };

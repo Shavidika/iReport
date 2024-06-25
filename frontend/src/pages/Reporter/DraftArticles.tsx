@@ -21,8 +21,9 @@ const DraftArticles: React.FC<DraftArticlesProps> = ({ onDraftClick }) => {
         {articles.map((draft) => (
           <li 
             key={draft.id} 
+            
             className="mb-4 p-4 border rounded-lg bg-white shadow cursor-pointer"
-            onClick={() => onDraftClick({ id: draft.id, title: draft.title ?? '', content: draft.content ?? '' })}
+            onClick={() => onDraftClick({ id: draft.id, title: draft.title ?? '', content: draft.content ?? ''})}
           >
             <h3 className="text-xl font-bold">{draft.title ?? 'No title'}</h3>
             <p className="text-gray-700">{draft.content?.substring(0, 100) ?? 'No content'}...</p>

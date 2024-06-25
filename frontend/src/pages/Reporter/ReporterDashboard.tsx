@@ -37,8 +37,8 @@ const Dashboard: React.FC = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar onComposeClick={handleComposeClick} onNavClick={setSelectedSection} />
       <main className="flex-1 p-6 overflow-auto">
-        {selectedSection === 'drafts' && <DraftArticles onDraftClick={handleDraftClick} />}
-        {selectedSection === 'submitted' && <SubmittedArticles onSubmittedClick={handleSubmittedClick} />}
+        {selectedSection === 'drafts' && <DraftArticles onDraftClick={handleDraftClick} onComposeClick={handleComposeClick} />}
+        {selectedSection === 'submitted' && <SubmittedArticles onSubmittedClick={handleSubmittedClick} onComposeClick={handleComposeClick} />}
       </main>
       {isComposeOpen && 
         <ComposeArticleModal 

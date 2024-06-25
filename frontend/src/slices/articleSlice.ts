@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
 
-type ArticleInfo = {
+export type ArticleInfo = {
   id: string;
   title: string;
   content: string;
@@ -17,12 +17,16 @@ type ArticleInfo = {
 
 type NewsApiState = {
   articles: ArticleInfo[];
+  draftArticles: ArticleInfo[];
+  submittedArticles: ArticleInfo[];
   status: "idle" | "loading" | "failed";
   error: string | null;
 };
 
 const initialState: NewsApiState = {
   articles: [],
+  draftArticles: [],
+  submittedArticles: [],
   status: "idle",
   error: null,
 };
@@ -279,19 +283,19 @@ const articleSlice = createSlice({
       .addCase(getDeclinedArticles.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
-      }).
-      addCase(getDraftArticles.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
       })
-      .addCase(getDraftArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
-        state.status = "idle";
-        state.articles = action.payload;
-      })
-      .addCase(getDraftArticles.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message ? action.error.message : null;
-      })
+      // addCase(getDraftArticles.pending, (state) => {
+      //   state.status = "loading";
+      //   state.error = null;
+      // })
+      // .addCase(getDraftArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+      //   state.status = "idle";
+      //   state.articles = action.payload;
+      // })
+      // .addCase(getDraftArticles.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message ? action.error.message : null;
+      // })
       .addCase(createEmptyDraft.fulfilled, (state, action: PayloadAction<ArticleInfo>) => {
         state.articles.push(action.payload);
       })
@@ -318,7 +322,31 @@ const articleSlice = createSlice({
       .addCase(saveDraftArticle.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message ? action.error.message : null;
+      })
+      .addCase(getDraftArticles.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getDraftArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+        state.status = "idle";
+        state.draftArticles = action.payload;
+      })
+      .addCase(getDraftArticles.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ? action.error.message : null;
       });
+      // .addCase(getSubmittedArticles.pending, (state) => {
+      //   state.status = "loading";
+      //   state.error = null;
+      // })
+      // .addCase(getSubmittedArticles.fulfilled, (state, action: PayloadAction<ArticleInfo[]>) => {
+      //   state.status = "idle";
+      //   state.submittedArticles = action.payload;
+      // })
+      // .addCase(getSubmittedArticles.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message ? action.error.message : null;
+      // });
   },
 });
 

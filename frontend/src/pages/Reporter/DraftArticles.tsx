@@ -12,7 +12,8 @@ const DraftArticles: React.FC<DraftArticlesProps> = ({ onDraftClick }) => {
 
   useEffect(() => {
     dispatch(getDraftArticles());
-  }, [dispatch]);
+  }, [dispatch,articles]);
+
 
   return (
     <div>

@@ -28,12 +28,17 @@ const Dashboard: React.FC = () => {
     setComposeOpen(true);
   };
 
+  const handleSubmittedClick = (article: { id: string, title: string, content: string }) => {
+    setSelectedArticle(article);
+    setComposeOpen(true);
+  }
+
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar onComposeClick={handleComposeClick} onNavClick={setSelectedSection} />
       <main className="flex-1 p-6 overflow-auto">
         {selectedSection === 'drafts' && <DraftArticles onDraftClick={handleDraftClick} />}
-        {selectedSection === 'submitted' && <SubmittedArticles />}
+        {selectedSection === 'submitted' && <SubmittedArticles onSubmittedClick={handleSubmittedClick} />}
       </main>
       {isComposeOpen && 
         <ComposeArticleModal 

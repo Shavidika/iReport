@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import React, { useState, useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 import { submitArticle, deleteArticle, saveDraftArticle } from '../../slices/articleSlice';
 
 interface ComposeArticleModalProps {
   onClose: () => void;
+  articleId: string;
+  initialTitle: string;
+  initialContent: string;
+  onSaveDraft: () => void;
 }
 
-const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, articleId, initialTitle, initialContent, onSaveDraft }) => {
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
   const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
-  const articles = useAppSelector((state) => state.articles.articles);
-  
-  const latestArticleId = articles.length > 0 ? articles[articles.length - 1].id : '';
+
+  useEffect(() => {
+    setTitle(initialTitle);
+    setContent(initialContent);
+  }, [initialTitle, initialContent]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -28,9 +34,9 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
       return;
     }
 
-    const response = await dispatch(submitArticle({ id: latestArticleId, title, content }));
+    const response = await dispatch(submitArticle({ id: articleId, title, content }));
     if (submitArticle.fulfilled.match(response)) {
-      console.log(`Article submitted with id ${latestArticleId}`);
+      console.log(`Article submitted with id ${articleId}`);
       onClose();
     } else {
       setError('Failed to submit the article. Please try again.');
@@ -38,9 +44,10 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
   };
 
   const handleSaveDraft = async () => {
-    const response = await dispatch(saveDraftArticle({ id: latestArticleId, title, content }));
+    const response = await dispatch(saveDraftArticle({ id: articleId, title, content }));
     if (saveDraftArticle.fulfilled.match(response)) {
-      console.log(`Article saved as draft with id ${latestArticleId}`);
+      console.log(`Article saved as draft with id ${articleId}`);
+      onSaveDraft();
       onClose();
     } else {
       setError('Failed to save the article as draft. Please try again.');
@@ -48,9 +55,9 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose }) =>
   };
 
   const handleCancel = async () => {
-    const response = await dispatch(deleteArticle(latestArticleId));
+    const response = await dispatch(deleteArticle(articleId));
     if (deleteArticle.fulfilled.match(response)) {
-      console.log(`Article deleted with id ${latestArticleId}`);
+      console.log(`Article deleted with id ${articleId}`);
       onClose();
     } else {
       setError('Failed to delete the article. Please try again.');

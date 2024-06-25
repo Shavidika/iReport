@@ -9,6 +9,7 @@ import { createEmptyDraft } from '../../slices/articleSlice';
 const Dashboard: React.FC = () => {
   const [isComposeOpen, setComposeOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState<'drafts' | 'submitted'>('drafts');
+  const [selectedArticle, setSelectedArticle] = useState<{ id: string, title: string, content: string }>({ id: '', title: '', content: '' });
   const dispatch = useAppDispatch();
   const articles = useAppSelector((state) => state.articles.articles);
 
@@ -17,7 +18,13 @@ const Dashboard: React.FC = () => {
     if (createEmptyDraft.fulfilled.match(response)) {
       const id = response.payload.id;
       console.log(`New draft created with id ${id}`);
+      setSelectedArticle({ id, title: '', content: '' });
     }
+    setComposeOpen(true);
+  };
+
+  const handleDraftClick = (article: { id: string, title: string, content: string }) => {
+    setSelectedArticle(article);
     setComposeOpen(true);
   };
 
@@ -25,10 +32,18 @@ const Dashboard: React.FC = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar onComposeClick={handleComposeClick} onNavClick={setSelectedSection} />
       <main className="flex-1 p-6 overflow-auto">
-        {selectedSection === 'drafts' && <DraftArticles />}
+        {selectedSection === 'drafts' && <DraftArticles onDraftClick={handleDraftClick} />}
         {selectedSection === 'submitted' && <SubmittedArticles />}
       </main>
-      {isComposeOpen && <ComposeArticleModal onClose={() => setComposeOpen(false)} />}
+      {isComposeOpen && 
+        <ComposeArticleModal 
+          onClose={() => setComposeOpen(false)} 
+          articleId={selectedArticle.id} 
+          initialTitle={selectedArticle.title} 
+          initialContent={selectedArticle.content} 
+          onSaveDraft={() => setComposeOpen(false)} 
+        />
+      }
     </div>
   );
 };

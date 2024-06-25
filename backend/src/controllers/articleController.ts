@@ -114,8 +114,8 @@ export const getDrafts = async (req: Request, res: Response) => {
     if (!drafts) {
       res.status(404).json({ message: "No articles found" });
     }
-
-    res.status(200).json(drafts);
+    const articlesWithAuthor = await Promise.all(drafts.map(combineAuthor));
+    res.status(200).json(articlesWithAuthor);
 }
 
 export const getDeclinedArticles = async (req: Request, res: Response) => {

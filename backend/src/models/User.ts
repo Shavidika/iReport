@@ -9,6 +9,7 @@ export interface IUser extends Document {
     password: String;
     roles: String[];
     userImage?: String;
+    cv_link?: String;
     comparePassword: (enteredPassword: string) => boolean;
 }
 
@@ -31,6 +32,10 @@ const userSchema = new Schema<IUser>({
         default: [Roles.Reader],
     },
     userImage:{
+        type: String,
+        required:false,
+    },
+    cv_link:{
         type: String,
         required:false,
     },

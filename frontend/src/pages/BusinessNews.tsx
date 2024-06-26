@@ -22,9 +22,10 @@ const articles = [
   {
     id: 2,
     title: 'Global Market Trends for 2024',
-    content:
-    'The year 2024 promises to be pivotal for global markets, marked by dynamic shifts and emerging trends that will redefine industries across the globe. One of the foremost trends anticipated is the accelerating pace of digital transformation. Companies worldwide are increasingly prioritizing environmental, social, and governance (ESG) factors, not just as a corporate responsibility but as a core driver of long-term value creation. This shift reflects a growing recognition of the interconnectedness between business success and sustainable practices and youth leadership worldwide.',
-  author: 'Nimsara Pamoda',
+    content: `
+      The year 2024 promises to be pivotal for global markets, marked by dynamic shifts and emerging trends that will redefine industries across the globe. One of the foremost trends anticipated is the accelerating pace of digital transformation. Companies worldwide are increasingly prioritizing environmental, social, and governance (ESG) factors, not just as a corporate responsibility but as a core driver of long-term value creation. This shift reflects a growing recognition of the interconnectedness between business success and sustainable practices and youth leadership worldwide.
+    `,
+    author: 'Nimsara Pamoda',
     date: 'June 26, 2024',
     image: 'https://via.placeholder.com/400x250', // Example image URL
     slug: 'global-market-trends',
@@ -33,8 +34,9 @@ const articles = [
   {
     id: 3,
     title: 'Impact of Digital Transformation on Businesses',
-    content:
-      'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
+    content: `
+      Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.
+    `,
     author: 'Alex Johnson',
     date: 'June 27, 2024',
     image: 'https://via.placeholder.com/400x250', // Example image URL
@@ -71,6 +73,19 @@ const BusinessNews: React.FC = () => {
           </Link>
         </div>
         <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+      </div>
+
+      {/* YouTube Video Section */}
+      <div className="mb-8">
+        <iframe
+          width="100%"
+          height="500"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
       </div>
 
       {/* Articles Section */}

@@ -53,6 +53,11 @@ function App() {
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
 
+        <Route element={<ProtectedLayout allowedRoles={[Roles.Reporter]} />}>
+          <Route path="/reporter" element={<ReporterDashboard />} />
+          <Route path="/reporter-request" element={<RequestReporter />} />
+        </Route>
+
         <Route path="/business-news" element={<BusinessNews />} />
         <Route path="/social-news" element={<SocialNews />} />
         <Route path="/security-news" element={<SecurityNews />} />

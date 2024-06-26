@@ -6,6 +6,7 @@ import {
   ArticleInfo,
 } from "../../slices/articleSlice";
 import ArticlePopup from "../../components/Reporter/ArticlePopup";
+import DraftArticles from "./DraftArticles";
 
 interface SubmittedArticlesProps {
   articles: ArticleInfo[];
@@ -33,7 +34,7 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
 
   useEffect(() => {
     dispatch(getSubmittedArticles());
-  }, [dispatch]);
+  }, [dispatch,articles,DraftArticles]);
 
   const handleArticleClick = (article: {
     id: string;
@@ -95,10 +96,14 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
             >
               <div className="mr-10">
                 <h3 className="text-xl font-bold">
-                  {article.title ? `${article.title.substring(0, 100)}...` : "No title"}
+                  {article.title
+                    ? `${article.title.substring(0, 100)}...`
+                    : "No title"}
                 </h3>
                 <p className="text-gray-700">
-                  {article.content ? `${article.content.substring(0, 70)}...` : "No content"}
+                  {article.content
+                    ? `${article.content.substring(0, 70)}...`
+                    : "No content"}
                 </p>
               </div>
               {/* <div>

@@ -1,31 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { submitArticle, deleteArticle, saveDraftArticle } from '../../slices/articleSlice';
+import axios from 'axios';
 
 interface ComposeArticleModalProps {
   onClose: () => void;
   articleId: string;
   initialTitle: string;
   initialContent: string;
-  
+  initialImage?: string;
   onSaveDraft: () => void;
 }
 
-const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, articleId, initialTitle, initialContent, onSaveDraft }) => {
+const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, articleId, initialTitle, initialContent, initialImage, onSaveDraft }) => {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
+  const [articleImage, setArticleImage] = useState<string | undefined>(initialImage);
   const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     setTitle(initialTitle);
     setContent(initialContent);
-  }, [initialTitle, initialContent]);
+    setArticleImage(initialImage);
+  }, [initialTitle, initialContent, initialImage]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
+      setArticleImage(URL.createObjectURL(e.target.files[0]));
+      await uploadImage(e.target.files[0]);
+    }
+  };
+
+  const uploadImage = async (image: File) => {
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', 'jafd0bw0');
+
+    try {
+      setUploading(true);
+      const response = await axios.post('https://api.cloudinary.com/v1_1/dymxhjpec/image/upload', formData, {
+        onUploadProgress: (progressEvent) => {
+          if (typeof progressEvent.total === 'number') {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted);
+          } else {
+            // Handle the case where progressEvent.total is undefined
+            // For example, you might want to display an indeterminate progress indicator
+            console.log('Upload size is unknown');
+          }
+        }
+      });
+      setArticleImage(response.data.secure_url);
+      setUploading(false);
+    } catch (error) {
+      setError('Failed to upload image. Please try again.');
+      setUploading(false);
     }
   };
 
@@ -35,7 +69,7 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, arti
       return;
     }
 
-    const response = await dispatch(submitArticle({ id: articleId, title, content }));
+    const response = await dispatch(submitArticle({ id: articleId, title, content, articleImage: articleImage ?? '' }));
     if (submitArticle.fulfilled.match(response)) {
       console.log(`Article submitted with id ${articleId}`);
       onClose();
@@ -45,7 +79,7 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, arti
   };
 
   const handleSaveDraft = async () => {
-    const response = await dispatch(saveDraftArticle({ id: articleId, title, content }));
+    const response = await dispatch(saveDraftArticle({ id: articleId, title, content, articleImage: articleImage ?? '' }));
     if (saveDraftArticle.fulfilled.match(response)) {
       console.log(`Article saved as draft with id ${articleId}`);
       onSaveDraft();
@@ -90,11 +124,21 @@ const ComposeArticleModal: React.FC<ComposeArticleModalProps> = ({ onClose, arti
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 mb-2">Image</label>
+          {articleImage && (
+            <div className="mb-4">
+              <img src={articleImage} alt="Article" className="max-w-xs h-auto mb-2" />
+            </div>
+          )}
           <input
             type="file"
             onChange={handleImageChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          {uploading && (
+            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+              <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
+            </div>
+          )}
         </div>
         <div className="flex justify-center">
           <button

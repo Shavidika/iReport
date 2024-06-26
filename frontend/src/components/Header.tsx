@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
 import { MdOutlineSportsSoccer } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -27,25 +27,25 @@ const avatarImageUrl =
 interface Product {
   name: string;
   description: string;
-  href: string;
+  to: string; // Changed from href to to for React Router Link
   icon: React.ElementType;
 }
 
 const products: Product[] = [
-  { name: "Business News", description: " ", href: "#", icon: ChartPieIcon },
+  { name: "Business News", description: "", to: "/business-news", icon: ChartPieIcon },
   {
     name: "Social News",
-    description: " ",
-    href: "#",
+    description: "",
+    to: "/social-news",
     icon: CursorArrowRaysIcon,
   },
-  { name: "Security News", description: " ", href: "#", icon: FingerPrintIcon },
-  { name: "Sport", description: "", href: "#", icon: MdOutlineSportsSoccer },
+  { name: "Security News", description: "", to: "/security-news", icon: FingerPrintIcon },
+  { name: "Sport", description: "", to: "/sport", icon: MdOutlineSportsSoccer },
 ];
 
 interface CallToAction {
   name: string;
-  href: string;
+  to: string; // Changed from href to to for React Router Link
   icon: React.ElementType;
 }
 
@@ -60,17 +60,30 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
   const userProfileInfo = useAppSelector((state) => state.auth.userProfileData);
+  const [dashboardOpened, setDashboardOpened] = useState(true);
+  const [navigatorText, setNavigatorText] = useState("Dashboard");
+  const location = useLocation();
 
-  const handleBeReporter = () => {
-    setIsLoggedIn(false);
+  const handleDashboardOpen = () => {
+    console.log(dashboardOpened);
+    setDashboardOpened(!dashboardOpened);
   };
 
+  useEffect(() => {
+    if(location.pathname === "/" && basicUserInfo?.roles.includes("ADMIN")){
+      setNavigatorText("Admin Dashboard");
+    } else if (location.pathname === "/" && basicUserInfo?.roles.includes("REPORTER")){
+      setNavigatorText("Reporter Dashboard");
+    } else if (location.pathname === "/admin" || location.pathname === "/reporter"){
+      setNavigatorText(" ");
+    } else {
+      setNavigatorText(" ");
+    }
+  }, [location]);
+
   return (
-    <header className="bg-white">
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-        aria-label="Global"
-      >
+    <header className="fixed top-0 left-0 w-full bg-white z-10">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">iReport</span>
@@ -124,13 +137,13 @@ export default function Header() {
                         />
                       </div>
                       <div className="flex-auto">
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.to}
                           className="block font-semibold text-gray-900"
                         >
                           {item.name}
                           <span className="absolute inset-0" />
-                        </a>
+                        </Link>
                         <p className="mt-1 text-gray-600">{item.description}</p>
                       </div>
                     </div>
@@ -138,9 +151,9 @@ export default function Header() {
                 </div>
                 <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                   {callsToAction.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.to}
                       className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                     >
                       <item.icon
@@ -148,14 +161,17 @@ export default function Header() {
                         aria-hidden="true"
                       />
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Panel>
             </Transition>
           </Popover>
 
-          <Link to="/undermaintaince" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link
+            to="/undermaintaince"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >
             Pages
           </Link>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -169,31 +185,50 @@ export default function Header() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
-          {basicUserInfo ? ( // Conditional rendering based on login status
+          {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
             <Fragment>
-              {/* <button
-                className=" text-red-500 text- font-semibold leading-6"
-                onClick={handleBeReporter}
-              >
-                Switch to Reporting
-              </button> */}
-              <RequestReporter/>
-              {/* <Link to="/profile">
-                <img
-                  className="h-10 w-10 rounded-full ml-20"
-                  src={userProfileInfo?.userImage || avatarImageUrl}
-                  alt="Avatar"
-                />
-              </Link> */}
+              <RequestReporter />
               <ProfileInfoPopover />
             </Fragment>
           ) : (
-            <Link
-              to="/login"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </Link>
+            <div>
+              {basicUserInfo?.roles.includes("ADMIN") ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Link
+                    to="/admin"
+                    className="text-red-500 text- mt-2 font-semibold leading-6"
+                    onClick={handleDashboardOpen}
+                  >
+                    {navigatorText}
+                  </Link>
+                  <ProfileInfoPopover />
+                </div>
+              ) : (
+                <div>
+                  {basicUserInfo?.roles.includes("REPORTER") ? (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <Link
+                        to="/reporter"
+                        className="text-red-500 text- mt-2 font-semibold leading-6"
+                        onAbort={handleDashboardOpen}
+                      >
+                        {navigatorText}
+                      </Link>
+                      <ProfileInfoPopover />
+                    </div>
+                  ) : (
+                    <div>
+                      <Link
+                        to="/login"
+                        className="text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Log in <span aria-hidden="true">&rarr;</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </nav>
@@ -209,91 +244,93 @@ export default function Header() {
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">iReport</span>
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="h-10 w-auto"
+                src="https://i.ibb.co/s56nq9W/i-Report-logo.png"
                 alt=""
               />
             </a>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Product
-                        <ChevronDownIcon
-                          className={classNames(
-                            open ? "rotate-180" : "",
-                            "h-5 w-5 flex-none"
-                          )}
-                          aria-hidden="true"
-                        />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products, ...callsToAction].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Features
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Marketplace
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Company
-                </a>
-              </div>
-              <div className="py-6">
-                {!basicUserInfo ? (
-                  <button
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    onClick={handleBeReporter}
-                  >
-                    Log out
-                  </button>
-                ) : (
-                  <Link
-                    to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </Link>
-                )}
-              </div>
+            <div className="-mr-2">
+              <button
+                type="button"
+                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="sr-only">Close main menu</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
             </div>
+          </div>
+          <div className="mt-6">
+            <nav className="grid gap-y-6">
+              <Link
+                to="/"
+                className="flex items-center p-3 -m-3 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Home
+              </Link>
+              <Link
+                to="/about"
+                className="flex items-center p-3 -m-3 text-sm font-semibold leading-6 text-gray-900"
+              >
+                About us
+              </Link>
+              <Link
+                to="/undermaintaince"
+                className="flex items-center p-3 -m-3 text-sm font-semibold leading-6 text-gray-900"
+              >
+                Pages
+              </Link>
+              <Disclosure as="div" className="space-y-1">
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex items-center justify-between w-full px-4 py-3 text-sm font-semibold leading-6 text-left text-gray-900 hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-gray-900/10 focus-visible:ring-opacity-50">
+                      <span>Categories</span>
+                      <ChevronDownIcon
+                        className={classNames(
+                          open ? "-rotate-180" : "rotate-0",
+                          "h-5 w-5 flex-none text-gray-400"
+                        )}
+                        aria-hidden="true"
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="space-y-1">
+                      {products.map((item) => (
+                        <Link
+                          key={item.name}
+                          to={item.to}
+                          className="flex items-center justify-between px-4 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
+                        >
+                          <span>{item.name}</span>
+                          <item.icon
+                            className="h-5 w-5 flex-none text-gray-400"
+                            aria-hidden="true"
+                          />
+                        </Link>
+                      ))}
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            </nav>
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-x-4">
+            {callsToAction.map((item) => (
+              <Link
+                key={item.name}
+                to={item.to}
+                className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
+              >
+                <item.icon
+                  className="h-5 w-5 flex-none text-gray-400"
+                  aria-hidden="true"
+                />
+                {item.name}
+              </Link>
+            ))}
           </div>
         </Dialog.Panel>
       </Dialog>
     </header>
   );
 }
+

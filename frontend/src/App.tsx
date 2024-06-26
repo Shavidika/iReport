@@ -13,13 +13,12 @@ import { Roles } from "./constants";
 import UserSettings from "./pages/UserSettings";
 import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
-import AboutUsPage from "./pages/AboutUs";
 import { ProfileInfoPopover } from "./components/profilePopover";
 import ReporterRequest from "./components/reporterRequestPopup";
 import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
 import Dashboard from "./pages/Admin/Dashboard";
-
+import BusinessNews from './pages/BusinessNews'; // Import the BusinessNews component
 
 function App() {
   return (
@@ -32,8 +31,9 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
         </Route>
-        <Route path="/undermaintaince" element={<UnderMaintainance/>}/>
+        <Route path="/undermaintaince" element={<UnderMaintainance />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/business-news" element={<BusinessNews />} /> {/* Add the BusinessNews route */}
         <Route path="/" element={<NewsFeed />} />
         <Route
           element={
@@ -49,10 +49,6 @@ function App() {
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
         <Route path="*" element={<NotFound />} />
-        {/* <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<SignupPage />} />
-        <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </>
   );

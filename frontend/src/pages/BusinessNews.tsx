@@ -1,5 +1,3 @@
-// src/pages/BusinessNews.tsx
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -20,10 +18,6 @@ const articles = [
   {
     id: 2,
     title: 'Global Market Trends for 2024',
-    content: `
-      The year 2024 promises to be pivotal for global markets, marked by dynamic shifts and emerging trends that will redefine industries across the globe. One of the foremost trends anticipated is the accelerating pace of digital transformation. Companies worldwide are increasingly prioritizing environmental, social, and governance (ESG) factors, not just as a corporate responsibility but as a core driver of long-term value creation. This shift reflects a growing recognition of the interconnectedness between business success and sustainable practices and youth leadership worldwide.
-    `,
-    author: 'Nimsara Pamoda',
     content: `
       The year 2024 promises to be pivotal for global markets, marked by dynamic shifts and emerging trends that will redefine industries across the globe. One of the foremost trends anticipated is the accelerating pace of digital transformation. Companies worldwide are increasingly prioritizing environmental, social, and governance (ESG) factors, not just as a corporate responsibility but as a core driver of long-term value creation. This shift reflects a growing recognition of the interconnectedness between business success and sustainable practices and youth leadership worldwide.
     `,
@@ -93,7 +87,6 @@ const articles = [
     slug: 'rise-of-ecommerce',
     category: 'business',
   },
-  // New article added below
   {
     id: 8,
     title: 'Innovations in Renewable Energy',
@@ -104,6 +97,42 @@ const articles = [
     date: 'July 2, 2024',
     image: 'https://via.placeholder.com/400x250', // Example image URL
     slug: 'innovations-renewable-energy',
+    category: 'business',
+  },
+  {
+    id: 9,
+    title: 'AI in Healthcare: Transforming Patient Care',
+    content: `
+      Artificial Intelligence (AI) is revolutionizing healthcare by enhancing diagnostic accuracy, predicting patient outcomes, and optimizing treatment plans. From medical imaging to personalized medicine, AI-powered technologies are reshaping the future of healthcare delivery, improving efficiency, and patient outcomes.
+    `,
+    author: 'Jessica Lee',
+    date: 'July 3, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'ai-in-healthcare',
+    category: 'healthcare',
+  },
+  {
+    id: 10,
+    title: 'Cryptocurrency Trends: What to Expect in 2024',
+    content: `
+      Cryptocurrencies continue to gain mainstream adoption, with trends indicating significant growth and regulatory developments in 2024. From decentralized finance (DeFi) to institutional investments, explore the latest developments shaping the future of digital currencies and blockchain technology.
+    `,
+    author: 'Andrew Green',
+    date: 'July 4, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'cryptocurrency-trends',
+    category: 'finance',
+  },
+  {
+    id: 11,
+    title: 'Future of Work: Automation and Job Market Trends',
+    content: `
+      Automation is transforming the job market, reshaping industries, and creating new opportunities. As businesses adopt robotics and AI technologies, understanding the impact on employment dynamics and workforce trends becomes crucial for career planning and organizational strategy.
+    `,
+    author: 'David White',
+    date: 'July 5, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'future-of-work-automation',
     category: 'business',
   },
 ];
@@ -177,9 +206,39 @@ const BusinessNews: React.FC = () => {
         </div>
       </div>
 
+      {/* Trending News Section */}
+      <div className="mb-8">
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-bold mb-4">Trending News</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {articles.slice(0, 6).map((trendingArticle) => (
+              <div key={trendingArticle.id} className="flex items-center">
+                <img
+                  src={trendingArticle.image}
+                  alt={trendingArticle.title}
+                  className="h-20 w-20 object-cover rounded-lg mr-4"
+                />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold">{trendingArticle.title}</h3>
+                  <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide mt-1">
+                    Trending
+                  </span>
+                </div>
+                <Link
+                  to={`/${trendingArticle.category}/${trendingArticle.slug}`}
+                  className="text-blue-500 hover:underline focus:outline-none ml-auto"
+                >
+                  View More
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Articles Section */}
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        {articles.map((article) => (
+        {articles.slice(6).map((article) => (
           <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />
             <div className="p-6">

@@ -13,7 +13,6 @@ import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { ProfileInfoPopover } from "./profilePopover";
 import RequestReporter from "./reporterRequestPopup";
-import { useLocation } from "react-router-dom";
 
 // Avatar image URL
 const avatarImageUrl =
@@ -190,7 +189,6 @@ export default function Header() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
-          {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
           {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
             <Fragment>
               <RequestReporter />

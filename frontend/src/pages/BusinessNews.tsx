@@ -279,6 +279,35 @@ const BusinessNews: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Additional YouTube Video Section */}
+      <div className="mt-8">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <iframe
+            width="100%"
+            height="150"
+            src="https://www.youtube.com/embed/3JZ_D3ELwOQ"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <div className="p-6">
+            <h2 className="text-lg font-semibold mb-2">New Innovations in Business Technology</h2>
+            <p className="text-gray-600 mb-4">
+              Explore the latest innovations in business technology that are driving growth and efficiency in various industries.
+            </p>
+            <div className="flex justify-between items-center mt-2">
+              <Link
+                to={`/business/technology-innovations`}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+              >
+                Go to the Article
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

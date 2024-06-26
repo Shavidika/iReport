@@ -30,7 +30,7 @@ function App() {
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/reporter" element={<ReporterDashboard />} />
+
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
@@ -51,6 +51,11 @@ function App() {
         <Route element={<ProtectedLayout allowedRoles={[Roles.Admin]} />}>
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/user-settings" element={<UserSettings />} />
+        </Route>
+
+        <Route element={<ProtectedLayout allowedRoles={[Roles.Reporter]} />}>
+          <Route path="/reporter" element={<ReporterDashboard />} />
+          <Route path="/reporter-request" element={<RequestReporter />} />
         </Route>
 
         <Route path="/business-news" element={<BusinessNews />} />

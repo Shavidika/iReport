@@ -87,9 +87,9 @@ export const getAllArticles = createAsyncThunk(
 
 export const submitArticle = createAsyncThunk(
   "articles/submit",
-  async ({ id, title, content }: { id: string, title: string, content: string }, { rejectWithValue }) => {
+  async ({ id, title, content, articleImage }: { id: string, title: string, content: string , articleImage:string}, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`/article/submit/${id}`, { title, content });
+      const response = await axiosInstance.put(`/article/submit/${id}`, { title, content,articleImage });
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
@@ -119,9 +119,9 @@ export const deleteArticle = createAsyncThunk(
 
 export const saveDraftArticle = createAsyncThunk(
   "articles/saveDraft",
-  async ({ id, title, content }: { id: string, title: string, content: string }, { rejectWithValue }) => {
+  async ({ id, title, content , articleImage}: { id: string, title: string, content: string, articleImage:string }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`/article/draft/${id}`, { title, content });
+      const response = await axiosInstance.put(`/article/draft/${id}`, { title, content, articleImage });
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError && error.response) {

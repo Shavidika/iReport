@@ -1,5 +1,5 @@
 import React from 'react';
-import { MdOutlineArticle, MdOutlinePublishedWithChanges, MdOutlineCancel } from 'react-icons/md';
+import { MdOutlineArticle, MdOutlinePublishedWithChanges, MdOutlineCancel, MdPersonAdd } from 'react-icons/md';
 
 interface SidebarProps {
   activeSection: string;
@@ -37,6 +37,19 @@ const Sidebar = ({ activeSection, onSectionClick }: SidebarProps) => {
         >
           <MdOutlineCancel className="mr-2" />
           Declined
+        </li>
+      </ul>
+
+      <h2 className="text-lg font-bold mt-8 mb-4">User Management</h2>
+      <ul>
+        <li
+          className={`py-2 px-4 cursor-pointer flex items-center ${
+            activeSection === 'ReporterRequest' ? 'bg-gray-700' : ''
+          }`}
+          onClick={() => onSectionClick('ReporterRequest')}
+        >
+          <MdPersonAdd className="mr-2" />
+          Reporter Request
         </li>
       </ul>
     </div>

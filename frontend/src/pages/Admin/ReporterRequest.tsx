@@ -1,43 +1,44 @@
-import React from 'react';
-
-const reporterRequests = [
-  {
-    email: 'sathsarasoysa2089@gmail.com',
-    pdfUrl: 'https://example.com/report1.pdf',
-  },
-  {
-    email: 'shavidhika.ekanayake@gmail.com',
-    pdfUrl: 'https://example.com/report2.pdf',
-  },
-  {
-    email: 'themaldesilva@gmail.com',
-    pdfUrl: 'https://example.com/report3.pdf',
-  },
-  {
-    email: 'hirunafernando@gmail.com',
-    pdfUrl: 'https://example.com/report4.pdf',
-  },
-  {
-    email: 'sathsaranavoda@gmail.com',
-    pdfUrl: 'https://example.com/report5.pdf',
-  },
-];
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store';
+// import { AppDispatch } from '../../store';
+import {
+  getReporterRequests,
+  acceptReporterRequest,
+  rejectReporterRequest,
+  UserInfo,
+} from '../../slices/userSlice';
+import userEvent from '@testing-library/user-event';
 
 const ReporterRequest = () => {
-  const handleAccept = (email: string) => {
-    // Handle accept action
-    console.log(`Accepted: ${email}`);
+  const dispatch = useDispatch<AppDispatch>();
+  const { reporterRequests, status, error } = useSelector(
+    (state: RootState) => state.user
+  );
+
+  useEffect(() => {
+    dispatch(getReporterRequests());
+  }, [dispatch,userEvent]);
+
+  const handleAccept = (id: string) => {
+    dispatch(acceptReporterRequest(id));
   };
 
-  const handleReject = (email: string) => {
-    // Handle reject action
-    console.log(`Rejected: ${email}`);
+  const handleReject = (id: string) => {
+    dispatch(rejectReporterRequest(id));
   };
 
   const handleDownload = (pdfUrl: string) => {
-    // Handle download action
     window.open(pdfUrl, '_blank');
   };
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'failed') {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div>
@@ -54,12 +55,12 @@ const ReporterRequest = () => {
           </tr>
         </thead>
         <tbody>
-          {reporterRequests.map((request, index) => (
-            <tr key={index}>
+          {reporterRequests.map((request: UserInfo) => (
+            <tr key={request.id}>
               <td className="py-2 px-4 border-b align-middle">{request.email}</td>
               <td className="py-2 px-4 border-b align-middle">
                 <a
-                  href={request.pdfUrl}
+                  href={request.cv_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 underline"
@@ -70,19 +71,19 @@ const ReporterRequest = () => {
               <td className="py-2 px-4 border-b text-center align-middle">
                 <div className="flex justify-center space-x-2">
                   <button
-                    onClick={() => handleAccept(request.email)}
+                    onClick={() => handleAccept(request.id)}
                     className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-700"
                   >
                     Accept
                   </button>
                   <button
-                    onClick={() => handleReject(request.email)}
+                    onClick={() => handleReject(request.id)}
                     className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700"
                   >
                     Reject
                   </button>
                   <button
-                    onClick={() => handleDownload(request.pdfUrl)}
+                    onClick={() => handleDownload(request.cv_link)}
                     className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-700"
                   >
                     Download PDF

@@ -9,9 +9,11 @@ const articles = {
     {
       id: 1,
       title: 'New Business Strategy Unveiled',
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
-      author: 'John Doe',
+      content: `
+      In a bold move aimed at redefining its impact on global youth development and leadership, AIESEC has unveiled its latest business strategy. The strategy, developed through extensive research and collaboration with key stakeholders, outlines a visionary roadmap to address contemporary challenges and opportunities in the youth leadership space.
+      Enhanced Global Reach: Expansion into new regions and communities to empower more young leaders worldwide.
+      Stay tuned as AIESEC embarks on this transformative journey to shape a brighter future for youth leadership worldwide.
+    `,author: 'Sathsara Soysa',
       date: 'June 25, 2024',
       image: 'https://via.placeholder.com/400x250', // Example image URL
       slug: 'new-business-strategy',
@@ -20,9 +22,32 @@ const articles = {
     {
       id: 2,
       title: 'Global Market Trends for 2024',
-      content:
-        'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
-      author: 'Jane Smith',
+      content: `
+    As we step into 2024, the global economic landscape is set to witness transformative changes, influenced by technological advancements, geopolitical shifts, and evolving consumer behaviors. Here are some of the key trends shaping the market this year:
+
+    - **Sustainability Integration**: Companies are increasingly embedding environmental, social, and governance (ESG) considerations into their core strategies. This trend is driven by a growing awareness of the long-term value of sustainable practices and includes:
+      - Expansion of green technologies and renewable energy solutions.
+      - Increased focus on reducing carbon footprints and enhancing resource efficiency.
+      - Enhanced transparency and reporting on sustainability metrics.
+
+    - **Technological Innovations**: The pace of technological advancements continues to accelerate, with significant impacts on various sectors. Key technological trends include:
+      - **Artificial Intelligence (AI) and Automation**: Enhancing efficiency and innovation across industries, from manufacturing to healthcare.
+      - **Blockchain and Decentralized Finance (DeFi)**: Revolutionizing transparency, security, and efficiency in financial transactions.
+      - **5G and IoT**: Enabling smarter, more connected devices and systems, driving advancements in smart cities, healthcare, and manufacturing.
+
+    - **Geopolitical Dynamics**: Geopolitical factors are reshaping trade relationships, investment flows, and regulatory landscapes. Notable trends include:
+      - Increased regionalism and trade realignments, affecting global supply chains.
+      - Heightened focus on cybersecurity and data protection, driven by geopolitical tensions and regulatory pressures.
+
+    - **Consumer Behavior Shifts**: The evolving preferences of consumers are driving changes in market strategies. Key shifts include:
+      - A growing demand for personalized and sustainable products and services.
+      - Increased adoption of digital and e-commerce platforms, accelerating the shift towards online shopping and digital interactions.
+      - Rising importance of health and wellness, with consumers prioritizing products and services that support their well-being.
+
+    These trends highlight the dynamic nature of the global market in 2024, presenting both challenges and opportunities for businesses worldwide. Companies that can effectively navigate these trends and leverage emerging technologies and sustainability practices are likely to lead the way in shaping a resilient and innovative future.
+
+    Stay tuned as we continue to explore these trends and their implications for businesses and consumers globally.
+  `,author: 'Nimsara Pamoda',
       date: 'June 26, 2024',
       image: 'https://via.placeholder.com/400x250', // Example image URL
       slug: 'global-market-trends',

@@ -8,9 +8,12 @@ const articles = [
   {
     id: 1,
     title: 'New Business Strategy Unveiled',
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
-    author: 'John Doe',
+    content: `
+      In a bold move aimed at redefining its impact on global youth development and leadership, AIESEC has unveiled its latest business strategy. The strategy, developed through extensive research and collaboration with key stakeholders, outlines a visionary roadmap to address contemporary challenges and opportunities in the youth leadership space.
+      Enhanced Global Reach: Expansion into new regions and communities to empower more young leaders worldwide.
+      Stay tuned as AIESEC embarks on this transformative journey to shape a brighter future for youth leadership worldwide.
+    `,
+    author: 'Sathsara Soysa',
     date: 'June 25, 2024',
     image: 'https://via.placeholder.com/400x250', // Example image URL
     slug: 'new-business-strategy',
@@ -20,8 +23,8 @@ const articles = [
     id: 2,
     title: 'Global Market Trends for 2024',
     content:
-      'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
-    author: 'Jane Smith',
+    'The year 2024 promises to be pivotal for global markets, marked by dynamic shifts and emerging trends that will redefine industries across the globe. One of the foremost trends anticipated is the accelerating pace of digital transformation. Companies worldwide are increasingly prioritizing environmental, social, and governance (ESG) factors, not just as a corporate responsibility but as a core driver of long-term value creation. This shift reflects a growing recognition of the interconnectedness between business success and sustainable practices and youth leadership worldwide.',
+  author: 'Nimsara Pamoda',
     date: 'June 26, 2024',
     image: 'https://via.placeholder.com/400x250', // Example image URL
     slug: 'global-market-trends',

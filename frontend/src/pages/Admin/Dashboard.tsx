@@ -4,6 +4,7 @@ import NewsSection from './SubmittedArticles';
 import ReportersSection from './PublishedArticles';
 import OverallSection from './DeclinedArticles';
 import Header from '../../components/Header';
+import ReporterRequest from './ReporterRequest';
 
 export default function Dashboard() {
     const [activeSection, setActiveSection] = useState('Submitted');
@@ -22,6 +23,7 @@ export default function Dashboard() {
                     {activeSection === 'Submitted' && <NewsSection />}
                     {activeSection === 'Published' && <ReportersSection />}
                     {activeSection === 'Declined' && <OverallSection />}
+                    {activeSection === 'Request' && <ReporterRequest />}
                 </div>
             </div>
         </div>

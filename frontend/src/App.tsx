@@ -18,7 +18,10 @@ import ReporterRequest from "./components/reporterRequestPopup";
 import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
 import Dashboard from "./pages/Admin/Dashboard";
-import BusinessNews from './pages/BusinessNews'; // Import the BusinessNews component
+import BusinessNews from "./pages/BusinessNews";
+import SocialNews from "./pages/SocialNews";
+import SecurityNews from "./pages/SecurityNews";
+import Sport from "./pages/Sport";
 
 function App() {
   return (
@@ -33,7 +36,6 @@ function App() {
         </Route>
         <Route path="/undermaintaince" element={<UnderMaintainance />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/business-news" element={<BusinessNews />} /> {/* Add the BusinessNews route */}
         <Route path="/" element={<NewsFeed />} />
         <Route
           element={
@@ -48,6 +50,12 @@ function App() {
         <Route element={<ProtectedLayout allowedRoles={[Roles.Admin]} />}>
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
+
+        <Route path="/business-news" element={<BusinessNews />} />
+        <Route path="/social-news" element={<SocialNews />} />
+        <Route path="/security-news" element={<SecurityNews />} />
+        <Route path="/sport" element={<Sport />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

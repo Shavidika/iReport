@@ -8,14 +8,8 @@ import {
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
-  SquaresPlusIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  PhoneIcon,
-  PlayCircleIcon,
-} from "@heroicons/react/24/solid";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { ProfileInfoPopover } from "./profilePopover";
 import RequestReporter from "./reporterRequestPopup";
@@ -239,7 +233,7 @@ export default function Header() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 max-w-full flex flex-col p-4 space-y-6 bg-white border-l shadow-lg">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">iReport</span>
@@ -333,4 +327,3 @@ export default function Header() {
     </header>
   );
 }
-

@@ -41,11 +41,37 @@ const articles = [
 ];
 
 const SecurityNews: React.FC = () => {
+  // Calculate last updated date
+  const lastUpdated = articles.reduce((prev, current) => {
+    const currentDateTime = new Date(current.date);
+    return prev < currentDateTime ? currentDateTime : prev;
+  }, new Date(articles[0].date));
+
+  // Format last updated date
+  const formattedLastUpdated = `${lastUpdated.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })}`;
+
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Security News</h1>
-      <p>Welcome to the Security News page. Here you will find the latest updates and articles on security.</p>
-      <div className="mt-8 grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-4 px-6 mb-8">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold">Security News</h1>
+            <p className="text-lg mt-2">Stay informed with the latest updates and articles on security.</p>
+          </div>
+          <Link to="/" className="text-white hover:underline">
+            Back to Home
+          </Link>
+        </div>
+        <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+      </div>
+
+      {/* Articles Section */}
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {articles.map((article) => (
           <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />

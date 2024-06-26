@@ -5,7 +5,7 @@ import { ArticleInfo } from '../../slices/articleSlice';
 
 interface DraftArticlesProps {
   articles: ArticleInfo[];
-  onDraftClick: (article: { id: string, title: string, content: string }) => void;
+  onDraftClick: (article: { id: string, title: string, content: string, articleImage: string }) => void;
   onComposeClick: () => void;
   className?: string;
 }
@@ -58,7 +58,7 @@ const DraftArticles: React.FC<DraftArticlesProps> = ({ articles, onDraftClick, o
             <div
               key={index}
               className="flex justify-between items-center border-b border-gray-200 py-2 hover:bg-gray-200 cursor-pointer m-2 p-3 rounded-md"
-              onClick={() => onDraftClick({ id: draft.id, title: draft.title ?? '', content: draft.content ?? '' })}
+              onClick={() => onDraftClick({ id: draft.id, title: draft.title ?? '', content: draft.content ?? '' , articleImage: draft.articleImage ?? ''})}
             >
               <div className="mr-10">
                 <h3 className="text-xl font-bold">{draft.title ? `${draft.title.substring(0, 100)}` : "No title"}</h3>

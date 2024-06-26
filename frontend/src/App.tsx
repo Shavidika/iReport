@@ -13,12 +13,16 @@ import { Roles } from "./constants";
 import UserSettings from "./pages/UserSettings";
 import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
-import AboutUsPage from "./pages/AboutUs";
 import { ProfileInfoPopover } from "./components/profilePopover";
 import ReporterRequest from "./components/reporterRequestPopup";
 import RequestReporter from "./components/reporterRequestPopup";
 import UnderMaintainance from "./pages/UnderMaintainance";
 import Dashboard from "./pages/Admin/Dashboard";
+import BusinessNews from "./pages/BusinessNews";
+import SocialNews from "./pages/SocialNews";
+import SecurityNews from "./pages/SecurityNews";
+import Sport from "./pages/Sport";
+import ArticlePage from "./pages/ArticlePage";
 import ReporterDashboard from "./pages/Reporter/ReporterDashboard";
 
 function App() {
@@ -48,14 +52,17 @@ function App() {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
-        <Route element={<ProtectedLayout allowedRoles={[Roles.Reporter]} />}>
-          <Route path="/reporter" element={<ReporterDashboard />} />
-        </Route>
+
+        <Route path="/business-news" element={<BusinessNews />} />
+        <Route path="/social-news" element={<SocialNews />} />
+        <Route path="/security-news" element={<SecurityNews />} />
+        <Route path="/sport" element={<Sport />} />
+
+        {/* Route for rendering individual articles */}
+        <Route path="/:category/:slug" element={<ArticlePage />} />
+
+        {/* Catch-all route for 404 */}
         <Route path="*" element={<NotFound />} />
-        {/* <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<SignupPage />} />
-        <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </>
   );

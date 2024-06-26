@@ -1,6 +1,6 @@
 // src/pages/Sport.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Define the article data for Sport News
@@ -38,9 +38,68 @@ const articles = [
     slug: 'fitness-wellness-tips',
     category: 'sport',
   },
+  // Additional articles
+  {
+    id: 4,
+    title: 'The Evolution of Extreme Sports',
+    content:
+      'Fusce vel elementum purus, eu commodo augue. Integer gravida risus eget dolor consequat, in suscipit mi ultricies.',
+    author: 'Emily Brown',
+    date: 'July 3, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'evolution-of-extreme-sports',
+    category: 'sport',
+  },
+  {
+    id: 5,
+    title: 'New Trends in Sports Nutrition',
+    content:
+      'Donec ullamcorper, sapien sed lobortis auctor, ipsum sapien vestibulum ligula, ac fermentum ipsum mi et justo.',
+    author: 'Michael Johnson',
+    date: 'July 4, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'trends-in-sports-nutrition',
+    category: 'sport',
+  },
+  {
+    id: 6,
+    title: 'Impact of Technology on Sports Training',
+    content:
+      'Curabitur nec volutpat sem, vitae facilisis lorem. Duis fringilla risus non justo tristique rutrum.',
+    author: 'Emma Watson',
+    date: 'July 5, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'impact-of-technology-on-sports',
+    category: 'sport',
+  },
+];
+
+// Define video news data
+const videoNews = [
+  {
+    id: 1,
+    title: 'Top 10 Sporting Moments of the Decade',
+    author: 'Sports Highlights',
+    date: 'July 10, 2024',
+    content:
+      'Watch this video to relive the top 10 sporting moments that defined the last decade in sports history.',
+    embedUrl: 'https://www.youtube.com/embed/oBtPDJ8d1K4', // Example YouTube embed URL
+  },
+  {
+    id: 2,
+    title: 'Best Sports Performances of the Year',
+    author: 'Sports Excellence',
+    date: 'July 11, 2024',
+    content:
+      'Experience the best sports performances of the year across various sports disciplines and events.',
+    embedUrl: 'https://www.youtube.com/embed/2cGiy5RYYKw', // Example YouTube embed URL
+  },
 ];
 
 const Sport: React.FC = () => {
+  const [subscriberName, setSubscriberName] = useState<string>('');
+  const [subscriberEmail, setSubscriberEmail] = useState<string>('');
+
   // Calculate last updated date
   const lastUpdated = articles.reduce((prev, current) => {
     const currentDateTime = new Date(current.date);
@@ -53,6 +112,14 @@ const Sport: React.FC = () => {
     month: 'long',
     day: 'numeric',
   })}`;
+
+  const handleSubscribe = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Here you would handle the subscription logic, e.g., sending data to a server or storing locally
+    alert(`Subscribed ${subscriberName} (${subscriberEmail})`);
+    setSubscriberName('');
+    setSubscriberEmail('');
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -68,6 +135,30 @@ const Sport: React.FC = () => {
           </Link>
         </div>
         <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+      </div>
+
+      {/* Video News Sections */}
+      <div className="grid gap-6 mb-8">
+        {videoNews.map((video) => (
+          <div key={video.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                src={video.embedUrl}
+                title={video.title}
+                className="w-full h-full"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="p-4">
+              <h2 className="text-lg font-semibold mb-2">{video.title}</h2>
+              <p className="text-gray-600">{video.content}</p>
+              <div className="flex items-center mt-4">
+                <p className="text-gray-500 text-sm">By {video.author}</p>
+                <p className="text-gray-500 text-sm ml-auto">{video.date}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Articles Section */}
@@ -91,6 +182,48 @@ const Sport: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Subscribe Form */}
+      <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+        <h2 className="text-lg font-semibold mb-2">Subscribe to Sport News Updates</h2>
+        <p className="text-gray-600 mb-4">
+          Stay updated with our latest articles and news updates on sports topics by subscribing to our newsletter.
+        </p>
+        <form onSubmit={handleSubscribe}>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={subscriberName}
+              onChange={(e) => setSubscriberName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={subscriberEmail}
+              onChange={(e) => setSubscriberEmail(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+          >
+            Subscribe
+          </button>
+        </form>
       </div>
     </div>
   );

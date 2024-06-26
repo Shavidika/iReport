@@ -3,6 +3,8 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../slices/authSlice";
 import { Roles } from "../constants";
+import axios from "axios";
+import { requestReporter } from "../slices/userSlice";
 
 const RequestReporter: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -10,6 +12,7 @@ const RequestReporter: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [cv, setCv] = useState<File | null>(null);
   const [email, setEmail] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const basicUserInfo = useAppSelector((state) => state.auth.basicUserInfo);
 
@@ -19,13 +22,43 @@ const RequestReporter: React.FC = () => {
     }
   }, [basicUserInfo]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    toggleModal();
+    if (cv) {
+      try {
+        const formData = new FormData();
+        formData.append("file", cv);
+        formData.append("upload_preset", "vnhxnl7n");
+
+        const response = await axios.post(
+          "https://api.cloudinary.com/v1_1/dymxhjpec/upload",
+          formData,
+          {
+            onUploadProgress: (progressEvent) => {
+              if (progressEvent.total) { // Check if `total` is not undefined
+                const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                setUploadProgress(progress);
+              } else {
+                // Handle the case where `total` is undefined
+                // For example, you might want to set a default progress value or perform some other action
+                console.log("Total size is undefined.");
+              }
+            },
+          }
+        );
+
+        const cvLink = response.data.secure_url;
+
+        dispatch(requestReporter(cvLink));
+        toggleModal();
+      } catch (error) {
+        console.error("Error uploading CV:", error);
+      }
+    }
   };
 
   const checkRole = () => {
-    setEmail(basicUserInfo?.email||" ");
+    setEmail(basicUserInfo?.email || " ");
     if (basicUserInfo?.roles?.includes(Roles.Reporter)) {
       navigate("/reporting");
     } else {
@@ -40,7 +73,7 @@ const RequestReporter: React.FC = () => {
   return (
     <>
       <button
-        className=" text-red-500 text- font-semibold leading-6"
+        className="text-red-500 font-semibold leading-6"
         onClick={checkRole}
       >
         Switch to Reporting
@@ -89,7 +122,7 @@ const RequestReporter: React.FC = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     Your email
                   </label>
@@ -97,7 +130,7 @@ const RequestReporter: React.FC = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="border  w-full border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
+                    className="border w-full border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     placeholder="name@abcmail.com"
                     value={email}
                     required
@@ -118,9 +151,18 @@ const RequestReporter: React.FC = () => {
                     id="cv"
                     className="w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                     required
-                    onChange={(e) => {}}
+                    onChange={(e) => setCv(e.target.files?.[0] || null)}
                   />
                 </div>
+
+                {uploadProgress > 0 && (
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div
+                      className="bg-blue-600 h-2.5 rounded-full"
+                      style={{ width: `${uploadProgress}%` }}
+                    ></div>
+                  </div>
+                )}
 
                 <button
                   type="submit"
@@ -128,13 +170,6 @@ const RequestReporter: React.FC = () => {
                 >
                   Request to be a reporter
                 </button>
-
-                {/* <div className="text-sm text-gray-500">
-                  Not registered?{" "}
-                  <a href="#" className="text-blue-700 hover:underline">
-                    Create account
-                  </a>
-                </div> */}
               </form>
             </div>
           </div>

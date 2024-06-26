@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get(
   "/:id",
-  authorize([Roles.Admin, Roles.Reader, Roles.Reporter]),
+  authorize([Roles.Admin, Roles.Reader, Roles.Reporter,Roles.RporterRequest]),
   getUser
 );
 

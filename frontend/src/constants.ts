@@ -6,4 +6,5 @@ export type ErrorResponse = {
     Admin = "ADMIN",
     Reader = "READER",
     Reporter = "REPORTER",
+    ReporterRequest = "REPORTER_REQUEST",
   }

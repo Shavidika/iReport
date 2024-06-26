@@ -7,7 +7,7 @@ import articlesReducer from "./slices/articleSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    users: userReducer,
+    user: userReducer, // Adjusted to match the slice name in the state
     notification: notificationReducer,
     articles: articlesReducer,
   },

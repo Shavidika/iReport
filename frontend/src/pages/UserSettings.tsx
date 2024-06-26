@@ -4,7 +4,7 @@ import { getUsers } from "../slices/userSlice";
 
 const UserSettings = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.users.users);
+  const users = useAppSelector((state) => state.user.users);
 
   useEffect(() => {
     dispatch(getUsers());

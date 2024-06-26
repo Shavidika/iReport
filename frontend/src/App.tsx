@@ -22,6 +22,7 @@ import BusinessNews from "./pages/BusinessNews";
 import SocialNews from "./pages/SocialNews";
 import SecurityNews from "./pages/SecurityNews";
 import Sport from "./pages/Sport";
+import ArticlePage from './pages/ArticlePage';
 
 function App() {
   return (
@@ -55,7 +56,11 @@ function App() {
         <Route path="/social-news" element={<SocialNews />} />
         <Route path="/security-news" element={<SecurityNews />} />
         <Route path="/sport" element={<Sport />} />
+        
+        {/* Route for rendering individual articles */}
+        <Route path="/:category/:slug" element={<ArticlePage />} />
 
+        {/* Catch-all route for 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

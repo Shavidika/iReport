@@ -51,6 +51,7 @@ function App() {
         <Route element={<ProtectedLayout allowedRoles={[Roles.Admin]} />}>
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/user-settings" element={<UserSettings />} />
+          <Route path="/reporter-request" element={<ReporterRequest />} />
         </Route>
 
         <Route element={<ProtectedLayout allowedRoles={[Roles.Reporter]} />}>

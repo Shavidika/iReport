@@ -6,7 +6,7 @@ import SignupPage from "./pages/Register_";
 import DefaultLayout from "./layouts/DefaultLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Profile from "./pages/Profile";
-import NewsCard from "./components/newsCard";
+import NewsCard from "./components/News/newsList";
 import NewsFeed from "./pages/NewsFeed";
 import NotificationBar from "./components/Notification/NotificationBar";
 import { Roles } from "./constants";
@@ -29,8 +29,7 @@ function App() {
     <>
       <NotificationBar />
       <Routes>
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/test" element={<ReporterRequest />} />
+        <Route path="/reporter" element={<ReporterDashboard />} />
         <Route element={<DefaultLayout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignupPage />} />
@@ -49,6 +48,7 @@ function App() {
         </Route>
 
         <Route element={<ProtectedLayout allowedRoles={[Roles.Admin]} />}>
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="/user-settings" element={<UserSettings />} />
         </Route>
 

@@ -44,7 +44,6 @@ const loginUser = async ( req:Request,res:Response)=>{
             userEmail: user.email.toString(),
             roles: user.roles.map((role) => role.toString()),
           });
-        console.log(req.body);
         res.status(201).json({
             id: user._id,
             email: user.email,
@@ -55,7 +54,6 @@ const loginUser = async ( req:Request,res:Response)=>{
         res.status(401).json({ message: "User not found / password incorrect" });
     }
 }
-
 
 const logoutUser = (req:Request,res:Response)=>{
     clearToken(res);

@@ -13,6 +13,7 @@ import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { useAppSelector } from "../hooks/redux-hooks";
 import { ProfileInfoPopover } from "./profilePopover";
 import RequestReporter from "./reporterRequestPopup";
+import { useLocation } from "react-router-dom";
 
 // Avatar image URL
 const avatarImageUrl =
@@ -63,21 +64,28 @@ export default function Header() {
     setDashboardOpened(!dashboardOpened);
   };
 
+  const handleBeReporter = () => {
+    setIsLoggedIn(false);
+  };
+
   useEffect(() => {
     if(location.pathname === "/" && basicUserInfo?.roles.includes("ADMIN")){
       setNavigatorText("Admin Dashboard");
-    } else if (location.pathname === "/" && basicUserInfo?.roles.includes("REPORTER")){
+    }else if (location.pathname === "/" && basicUserInfo?.roles.includes("REPORTER")){
       setNavigatorText("Reporter Dashboard");
-    } else if (location.pathname === "/admin" || location.pathname === "/reporter"){
+    }else if (location.pathname === "/admin"|| location.pathname === "/reporter"){
       setNavigatorText(" ");
-    } else {
+    } else{
       setNavigatorText(" ");
     }
   }, [location]);
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white z-10">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">iReport</span>
@@ -163,8 +171,11 @@ export default function Header() {
           </Popover>
 
           <Link
+           
             to="/undermaintaince"
+           
             className="text-sm font-semibold leading-6 text-gray-900"
+          
           >
             Pages
           </Link>
@@ -179,6 +190,7 @@ export default function Header() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center">
+          {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
           {basicUserInfo?.roles.includes("READER") ? ( // Conditional rendering based on login status
             <Fragment>
               <RequestReporter />
@@ -212,12 +224,44 @@ export default function Header() {
                     </div>
                   ) : (
                     <div>
+                      <div>
+              {basicUserInfo?.roles.includes("ADMIN") ? (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Link
+                    to="/admin"
+                    className="text-red-500 text- mt-2 font-semibold leading-6"
+                    onClick={handleDashboardOpen}
+                  >
+                    {navigatorText}
+                  </Link>
+                  <ProfileInfoPopover />
+                </div>
+              ) : (
+                <div>
+                  {basicUserInfo?.roles.includes("REPORTER") ? (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
                       <Link
-                        to="/login"
-                        className="text-sm font-semibold leading-6 text-gray-900"
+                        to="/reporter"
+                        className="text-red-500 text- mt-2 font-semibold leading-6"
+                        onAbort={handleDashboardOpen}
                       >
-                        Log in <span aria-hidden="true">&rarr;</span>
+                        {navigatorText}
                       </Link>
+                      <ProfileInfoPopover />
+                    </div>
+                  ) : (
+                    <div>
+                      <Link
+                                  to="/login"
+                                  className="text-sm font-semibold leading-6 text-gray-900"
+                                >
+                                  Log in <span aria-hidden="true">&rarr;</span>
+                                </Link>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
                     </div>
                   )}
                 </div>

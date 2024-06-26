@@ -6,7 +6,7 @@ import {
   submitArticle,
   saveDraft,
   deleteDraft,
-  getArticleByUser,
+  getArticleByAuthor,
   getArticleByCategory,
   getArticleBySearch,
   upvoteArticle,
@@ -24,7 +24,7 @@ import { Roles } from "../constants";
 
 const router = express.Router();
 
-router.get("/submitted/all", authorize([Roles.Admin]), getSubmittedArticles);
+router.get("/submitted/all", authorize([Roles.Admin,Roles.Reporter]), getSubmittedArticles);
 // router.get("published/all", getPublishedArticles);
 router.get("/drafts/all", authorize([Roles.Reporter]), getDrafts);
 router.get("/declined/all", authorize([Roles.Admin]), getDeclinedArticles);
@@ -33,12 +33,12 @@ router.get("/all",getAllArticles);
 
 router.post(
   "/draft",
-  authorize([Roles.Reporter, Roles.Admin]),
+  authorize([Roles.Reporter]),
   createEmptyDraft
 );
 router.put(
   "/submit/:id",
-  authorize([Roles.Reporter, Roles.Admin]),
+  authorize([Roles.Reporter]),
   submitArticle
 );
 router.put("/draft/:id", authorize([Roles.Reporter]), saveDraft);
@@ -46,11 +46,12 @@ router.put("/publish/:id", authorize([Roles.Admin]), publishArticle);
 router.put("/decline/:id", authorize([Roles.Admin]), declineArticle);
 router.delete("/delete/:id", authorize([Roles.Reporter]), deleteDraft);
 
-router.get("/user/:id", getArticleByUser);
+
 router.get("/category/:category", getArticleByCategory);
 router.get("/search", getArticleBySearch);
 
-router.post("/:id/react", upvoteArticle);
+router.post("/:id/upvote", upvoteArticle);
+router.post("/:id/downvote", downvoteArticle);
 router.post("/:id/react", downvoteArticle);
 router.post("/:id/comment", commentArticle);
 

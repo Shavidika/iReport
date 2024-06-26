@@ -14,6 +14,7 @@ interface SubmittedArticlesProps {
     id: string;
     title: string;
     content: string;
+    articleImage?: string;
   }) => void;
   onComposeClick: () => void;
   className?: string;
@@ -30,6 +31,7 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
     id: string;
     title: string;
     content: string;
+    articleImage?: string;
   } | null>(null);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
     id: string;
     title: string;
     content: string;
+    articleImage?: string;
   }) => {
     setSelectedArticle(article);
   };
@@ -91,6 +94,7 @@ const SubmittedArticles: React.FC<SubmittedArticlesProps> = ({
                   id: article.id,
                   title: article.title ?? "",
                   content: article.content ?? "",
+                  articleImage: article.articleImage ?? "",
                 })
               }
             >

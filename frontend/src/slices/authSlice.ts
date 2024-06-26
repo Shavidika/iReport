@@ -80,6 +80,7 @@ export const getUser = createAsyncThunk(
     const response = await axiosInstance.get(
       `/users/${userId}`
     );
+    // console.log(response.data);
     return response.data;
   }
 );

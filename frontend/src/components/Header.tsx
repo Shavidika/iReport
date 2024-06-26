@@ -26,14 +26,24 @@ interface Product {
 }
 
 const products: Product[] = [
-  { name: "Business News", description: "", to: "/business-news", icon: ChartPieIcon },
+  {
+    name: "Business News",
+    description: "",
+    to: "/business-news",
+    icon: ChartPieIcon,
+  },
   {
     name: "Social News",
     description: "",
     to: "/social-news",
     icon: CursorArrowRaysIcon,
   },
-  { name: "Security News", description: "", to: "/security-news", icon: FingerPrintIcon },
+  {
+    name: "Security News",
+    description: "",
+    to: "/security-news",
+    icon: FingerPrintIcon,
+  },
   { name: "Sport", description: "", to: "/sport", icon: MdOutlineSportsSoccer },
 ];
 
@@ -68,13 +78,19 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if(location.pathname === "/" && basicUserInfo?.roles.includes("ADMIN")){
+    if (location.pathname === "/" && basicUserInfo?.roles.includes("ADMIN")) {
       setNavigatorText("Admin Dashboard");
-    }else if (location.pathname === "/" && basicUserInfo?.roles.includes("REPORTER")){
+    } else if (
+      location.pathname === "/" &&
+      basicUserInfo?.roles.includes("REPORTER")
+    ) {
       setNavigatorText("Reporter Dashboard");
-    }else if (location.pathname === "/admin"|| location.pathname === "/reporter"){
+    } else if (
+      location.pathname === "/admin" ||
+      location.pathname === "/reporter"
+    ) {
       setNavigatorText(" ");
-    } else{
+    } else {
       setNavigatorText(" ");
     }
   }, [location]);
@@ -170,11 +186,8 @@ export default function Header() {
           </Popover>
 
           <Link
-           
             to="/undermaintaince"
-           
             className="text-sm font-semibold leading-6 text-gray-900"
-          
           >
             Pages
           </Link>
@@ -223,43 +236,60 @@ export default function Header() {
                   ) : (
                     <div>
                       <div>
-              {basicUserInfo?.roles.includes("ADMIN") ? (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Link
-                    to="/admin"
-                    className="text-red-500 text- mt-2 font-semibold leading-6"
-                    onClick={handleDashboardOpen}
-                  >
-                    {navigatorText}
-                  </Link>
-                  <ProfileInfoPopover />
-                </div>
-              ) : (
-                <div>
-                  {basicUserInfo?.roles.includes("REPORTER") ? (
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                      <Link
-                        to="/reporter"
-                        className="text-red-500 text- mt-2 font-semibold leading-6"
-                        onAbort={handleDashboardOpen}
-                      >
-                        {navigatorText}
-                      </Link>
-                      <ProfileInfoPopover />
-                    </div>
-                  ) : (
-                    <div>
-                      <Link
-                                  to="/login"
-                                  className="text-sm font-semibold leading-6 text-gray-900"
+                        {basicUserInfo?.roles.includes("ADMIN") ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Link
+                              to="/admin"
+                              className="text-red-500 text- mt-2 font-semibold leading-6"
+                              onClick={handleDashboardOpen}
+                            >
+                              {navigatorText}
+                            </Link>
+                            <ProfileInfoPopover />
+                          </div>
+                        ) : (
+                          <div>
+                            {basicUserInfo?.roles.includes("REPORTER") ? (
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <Link
+                                  to="/reporter"
+                                  className="text-red-500 text- mt-2 font-semibold leading-6"
+                                  onAbort={handleDashboardOpen}
                                 >
-                                  Log in <span aria-hidden="true">&rarr;</span>
+                                  {navigatorText}
                                 </Link>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+                                <ProfileInfoPopover />
+                              </div>
+                            ) : (
+                              <div>
+                                {basicUserInfo ? (
+                                  <>
+                                    <ProfileInfoPopover />
+                                  </>
+                                ) : (
+                                  <Link
+                                    to="/login"
+                                    className="text-sm font-semibold leading-6 text-gray-900"
+                                  >
+                                    Log in{" "}
+                                    <span aria-hidden="true">&rarr;</span>
+                                  </Link>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

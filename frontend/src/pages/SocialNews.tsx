@@ -1,6 +1,6 @@
 // src/pages/SocialNews.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Define the article data for Social News
@@ -38,9 +38,46 @@ const articles = [
     slug: 'ethical-issues-social-media',
     category: 'social',
   },
+  // Additional articles
+  {
+    id: 4,
+    title: 'The Future of Social Networks',
+    content:
+      'Fusce vel elementum purus, eu commodo augue. Integer gravida risus eget dolor consequat, in suscipit mi ultricies.',
+    author: 'Emily Brown',
+    date: 'July 3, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'future-of-social-networks',
+    category: 'social',
+  },
+  {
+    id: 5,
+    title: 'Privacy Concerns in Online Communities',
+    content:
+      'Donec ullamcorper, sapien sed lobortis auctor, ipsum sapien vestibulum ligula, ac fermentum ipsum mi et justo.',
+    author: 'Michael Johnson',
+    date: 'July 4, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'privacy-concerns-online-communities',
+    category: 'social',
+  },
+  {
+    id: 6,
+    title: 'The Role of Social Media in Political Movements',
+    content:
+      'Curabitur nec volutpat sem, vitae facilisis lorem. Duis fringilla risus non justo tristique rutrum.',
+    author: 'Emma Watson',
+    date: 'July 5, 2024',
+    image: 'https://via.placeholder.com/400x250', // Example image URL
+    slug: 'role-of-social-media-political-movements',
+    category: 'social',
+  },
 ];
 
 const SocialNews: React.FC = () => {
+  const [subscriberName, setSubscriberName] = useState<string>('');
+  const [subscriberEmail, setSubscriberEmail] = useState<string>('');
+
   // Calculate last updated date
   const lastUpdated = articles.reduce((prev, current) => {
     const currentDateTime = new Date(current.date);
@@ -53,6 +90,14 @@ const SocialNews: React.FC = () => {
     month: 'long',
     day: 'numeric',
   })}`;
+
+  const handleSubscribe = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Here you would handle the subscription logic, e.g., sending data to a server or storing locally
+    alert(`Subscribed ${subscriberName} (${subscriberEmail})`);
+    setSubscriberName('');
+    setSubscriberEmail('');
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -68,6 +113,35 @@ const SocialNews: React.FC = () => {
           </Link>
         </div>
         <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+      </div>
+
+      {/* First YouTube Video Section */}
+      <div className="mb-8">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <iframe
+            width="100%"
+            height="200"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <div className="p-6">
+            <h2 className="text-lg font-semibold mb-2">The Impact of Social Media</h2>
+            <p className="text-gray-600 mb-4">
+              Discover how social media platforms are influencing society and shaping cultural norms.
+            </p>
+            <div className="flex justify-between items-center mt-2">
+              <Link
+                to={`/social/main-news`}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+              >
+                Go to the Article
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Articles Section */}
@@ -91,6 +165,77 @@ const SocialNews: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Second YouTube Video Section */}
+      <div className="mb-8">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+          <iframe
+            width="100%"
+            height="200"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+          <div className="p-6">
+            <h2 className="text-lg font-semibold mb-2">Trends in Social Media Marketing</h2>
+            <p className="text-gray-600 mb-4">
+              Explore the latest trends in digital marketing and how social media platforms are reshaping advertising strategies.
+            </p>
+            <div className="flex justify-between items-center mt-2">
+              <Link
+                to={`/social/latest-news`}
+                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+              >
+                Go to the Article
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Subscribe Form */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-lg font-semibold mb-2">Subscribe to Social News Updates</h2>
+        <p className="text-gray-600 mb-4">
+          Stay updated with our latest articles and news updates on social topics by subscribing to our newsletter.
+        </p>
+        <form onSubmit={handleSubscribe}>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={subscriberName}
+              onChange={(e) => setSubscriberName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={subscriberEmail}
+              onChange={(e) => setSubscriberEmail(e.target.value)}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+          >
+            Subscribe
+          </button>
+        </form>
       </div>
     </div>
   );

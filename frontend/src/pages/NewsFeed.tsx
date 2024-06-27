@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import NewsCard from "../components/News/newsList";
+import Footer from "../pages/Footer";
 
 export default function NewsFeed() {
   return (
@@ -13,6 +14,7 @@ export default function NewsFeed() {
       <div className="mt-20">
 
       <NewsCard />
+      <Footer />
       </div>
     </div>
   );

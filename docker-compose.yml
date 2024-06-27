@@ -1,25 +1,28 @@
-version: '3'
-services:
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/app
-    depends_on:
-      - mongo
+version: '3.8'
 
+services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
+      - "3014:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URL=mongodb+srv://ireport:!report@ireport.bq7gso9.mongodb.net/iReport
+    ports:
+      - "8014:8000"
+    depends_on:
+      - mongo
 
   mongo:
-    image: mongo
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:

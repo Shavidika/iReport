@@ -191,9 +191,14 @@ export default function Header() {
           >
             Pages
           </Link>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+
+          <Link
+            to="/contact"
+            className="text-sm font-semibold leading-6 text-gray-900"
+          >  
             Contact us
-          </a>
+          </Link>
+      
           <Link
             to="/about"
             className="text-sm font-semibold leading-6 text-gray-900"

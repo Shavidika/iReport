@@ -24,6 +24,7 @@ import SecurityNews from "./pages/SecurityNews";
 import Sport from "./pages/Sport";
 import ArticlePage from "./pages/ArticlePage";
 import ReporterDashboard from "./pages/Reporter/ReporterDashboard";
+import ContactUs from "./pages/Contactus";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         </Route>
         <Route path="/undermaintaince" element={<UnderMaintainance />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/" element={<NewsFeed />} />
         <Route
           element={

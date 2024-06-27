@@ -15,7 +15,7 @@ const articles = {
       Stay tuned as AIESEC embarks on this transformative journey to shape a brighter future for youth leadership worldwide.
     `,author: 'Sathsara Soysa',
       date: 'June 25, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://imageio.forbes.com/specials-images/imageserve/633a774a842d06ecd68286ff/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds', // Example image URL
       slug: 'new-business-strategy',
       category: 'business',
     },
@@ -49,7 +49,7 @@ const articles = {
     Stay tuned as we continue to explore these trends and their implications for businesses and consumers globally.
   `,author: 'Nimsara Pamoda',
       date: 'June 26, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://economictimes.indiatimes.com/thumb/msid-89395141,width-1600,height-900,resizemode-4/markets/stocks/news/global-market-cues-for-february-07-2022.jpg', // Example image URL
       slug: 'global-market-trends',
       category: 'business',
     },
@@ -60,7 +60,7 @@ const articles = {
         'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
       author: 'Alex Johnson',
       date: 'June 27, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://www.smartosc.com/wp-content/uploads/2023/04/4-Types-of-Digital-Transformation-Projects.png', // Example image URL
       slug: 'digital-transformation-impact',
       category: 'business',
     },
@@ -73,7 +73,7 @@ const articles = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
       author: 'Emily Brown',
       date: 'June 28, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://wr1ter.com/wp-content/uploads/2023/07/Influence-of-Social-Media-on-Modern-Society.jpg', // Example image URL
       slug: 'impact-of-social-media',
       category: 'social',
     },
@@ -84,7 +84,7 @@ const articles = {
         'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
       author: 'Michael Johnson',
       date: 'June 29, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://www.cybertegic.com/wp-content/uploads/2023/03/The-Rise-of-Influencer-Marketing-in-Digital-Advertising.jpg', // Example image URL
       slug: 'influencer-marketing-rise',
       category: 'social',
     },
@@ -95,7 +95,7 @@ const articles = {
         'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
       author: 'Sophia Williams',
       date: 'June 30, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://miro.medium.com/v2/resize:fit:1400/1*ZyeN0Q6OIJVB9g8RpOz0Zw.jpeg', // Example image URL
       slug: 'ethical-issues-social-media',
       category: 'social',
     },
@@ -108,7 +108,7 @@ const articles = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
       author: 'Daniel Moore',
       date: 'July 1, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://smartphonemagazine.nl/wp-content/uploads/2024/06/compressed_img-2nzDjBwjNuXWZhfO41j4SzJv.png', // Example image URL
       slug: 'enhanced-security-measures',
       category: 'security',
     },
@@ -119,7 +119,7 @@ const articles = {
         'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
       author: 'Olivia Davis',
       date: 'July 2, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://media.licdn.com/dms/image/D5612AQE32z103yICGw/article-cover_image-shrink_720_1280/0/1698629760965?e=2147483647&v=beta&t=7lCZskuHaCzeyn0rAFqrE4zKocYjOHFqEV8GdIsXINw', // Example image URL
       slug: 'cybersecurity-trends',
       category: 'security',
     },
@@ -130,7 +130,7 @@ const articles = {
         'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
       author: 'William Taylor',
       date: 'July 3, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://cdn.techwireasia.com/wp-content/uploads/2023/01/shutterstock_1875135925-scaled.jpg', // Example image URL
       slug: 'data-privacy-importance',
       category: 'security',
     },
@@ -143,7 +143,7 @@ const articles = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
       author: 'Sophie Clark',
       date: 'July 4, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://www.redasiainsurance.com/wp-content/uploads/2022/02/Sports-events-insurance-Main-scaled-e1644805433386.jpg', // Example image URL
       slug: 'top-sporting-events',
       category: 'sport',
     },
@@ -154,7 +154,7 @@ const articles = {
         'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
       author: 'James Anderson',
       date: 'July 5, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://cdn.britannica.com/35/238335-050-2CB2EB8A/Lionel-Messi-Argentina-Netherlands-World-Cup-Qatar-2022.jpg', // Example image URL
       slug: 'athlete-spotlight',
       category: 'sport',
     },
@@ -165,7 +165,7 @@ const articles = {
         'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
       author: 'Emma White',
       date: 'July 6, 2024',
-      image: 'https://via.placeholder.com/400x250', // Example image URL
+      image: 'https://www.meritain.com/wp-content/uploads/2022/01/Image_Health-tips-for-the-gym_0122.jpg', // Example image URL
       slug: 'fitness-wellness-tips',
       category: 'sport',
     },

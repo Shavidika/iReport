@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header'; // Import the Header component
 
 // Define the article data for Sport News
 const articles = [
@@ -122,111 +123,115 @@ const Sport: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white py-4 px-6 mb-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Sport News</h1>
-            <p className="text-lg mt-2">Discover the latest updates and articles on sports.</p>
-          </div>
-          <Link to="/" className="text-white hover:underline">
-            Back to Home
-          </Link>
-        </div>
-        <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
-      </div>
-
-      {/* Video News Sections */}
-      <div className="grid gap-6 mb-8">
-        {videoNews.map((video) => (
-          <div key={video.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="aspect-w-16 aspect-h-9">
-              <iframe
-                src={video.embedUrl}
-                title={video.title}
-                className="w-full h-full"
-                allowFullScreen
-              ></iframe>
+    <div className="min-h-screen">
+      <Header /> {/* Add the Header component */}
+      <div className="container mx-auto p-6 pt-24">
+        {/* Header Section */}
+        <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white py-4 px-6 mb-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-3xl font-bold">Sport News</h1>
+              <p className="text-lg mt-2">Discover the latest updates and articles on sports.</p>
             </div>
-            <div className="p-4">
-              <h2 className="text-lg font-semibold mb-2">{video.title}</h2>
-              <p className="text-gray-600">{video.content}</p>
-              <div className="flex items-center mt-4">
-                <p className="text-gray-500 text-sm">By {video.author}</p>
-                <p className="text-gray-500 text-sm ml-auto">{video.date}</p>
+            <Link to="/" className="text-white hover:underline">
+              Back to Home
+            </Link>
+          </div>
+          <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+        </div>
+
+        {/* Video News Sections */}
+        <div className="grid gap-6 mb-8">
+          {videoNews.map((video) => (
+            <div key={video.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div className="aspect-w-16 aspect-h-9">
+                <iframe
+                  src={video.embedUrl}
+                  title={video.title}
+                  className="w-full h-full"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-4">
+                <h2 className="text-lg font-semibold mb-2">{video.title}</h2>
+                <p className="text-gray-600">{video.content}</p>
+                <div className="flex items-center mt-4">
+                  <p className="text-gray-500 text-sm">By {video.author}</p>
+                  <p className="text-gray-500 text-sm ml-auto">{video.date}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Articles Section */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        {articles.map((article) => (
-          <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />
-            <div className="p-6">
-              <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
-              <p className="text-gray-600 mb-4">{article.content}</p>
+        {/* Articles Section */}
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          {articles.map((article) => (
+            <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />
+              <div className="p-6">
+                <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
+                <p className="text-gray-600 mb-4">{article.content}</p>
+              </div>
+              <div className="bg-gray-100 px-6 py-3">
+                <p className="text-gray-500 text-sm">By {article.author}</p>
+                <p className="text-gray-500 text-sm">{article.date}</p>
+                <Link
+                  to={`/sport/${article.slug}`}
+                  className="text-blue-600 hover:underline block mt-2"
+                >
+                  Read more
+                </Link>
+              </div>
             </div>
-            <div className="bg-gray-100 px-6 py-3">
-              <p className="text-gray-500 text-sm">By {article.author}</p>
-              <p className="text-gray-500 text-sm">{article.date}</p>
-              <Link
-                to={`/sport/${article.slug}`}
-                className="text-blue-600 hover:underline block mt-2"
-              >
-                Read more
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Subscribe Form */}
-      <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-        <h2 className="text-lg font-semibold mb-2">Subscribe to Sport News Updates</h2>
-        <p className="text-gray-600 mb-4">
-          Stay updated with our latest articles and news updates on sports topics by subscribing to our newsletter.
-        </p>
-        <form onSubmit={handleSubscribe}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              value={subscriberName}
-              onChange={(e) => setSubscriberName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              value={subscriberEmail}
-              onChange={(e) => setSubscriberEmail(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
-          >
-            Subscribe
-          </button>
-        </form>
+        {/* Subscribe Form */}
+        <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+          <h2 className="text-lg font-semibold mb-2">Subscribe to Sport News Updates</h2>
+          <p className="text-gray-600 mb-4">
+            Stay updated with our latest articles and news updates on sports topics by subscribing to our newsletter.
+          </p>
+          <form onSubmit={handleSubscribe}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                value={subscriberName}
+                onChange={(e) => setSubscriberName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                value={subscriberEmail}
+                onChange={(e) => setSubscriberEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Sport;
+

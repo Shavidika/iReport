@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 // Define the article data
 const articles = [
@@ -174,163 +175,166 @@ const BusinessNews: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      {/* Header Section */}
-      <div className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-4 px-6 mb-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-semibold">Business News</h1>
-            <p className="text-sm mt-2">
-              Stay updated with the latest trends and insights in the world of business.
-            </p>
-          </div>
-          <Link to="/" className="text-white hover:underline">
-            Back to Home
-          </Link>
-        </div>
-        <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
-      </div>
-
-      {/* First YouTube Video Section */}
-      <div className="mb-8">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <iframe
-            width="100%"
-            height="200"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <div className="p-6">
-            <h2 className="text-lg font-semibold mb-2">The Impact of Global Trends</h2>
-            <p className="text-gray-600 mb-4">
-              The world is changing rapidly with emerging trends shaping global markets and industries. Explore how these trends are influencing business strategies worldwide.
-            </p>
-            <div className="flex justify-between items-center mt-2">
-              <Link
-                to={`/business/main-news`}
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
-              >
-                Go to the Article
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Articles Section */}
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-        {articles.map((article) => (
-          <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-            <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />
-            <div className="p-6">
-              <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
-              <p className="text-gray-600 mb-4">
-                {selectedArticle === article.id ? article.content : article.content.substring(0, 200)}...
+    <div className="min-h-screen">
+      <Header />
+      <div className="container mx-auto p-6">
+        {/* Header Section */}
+        <div className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white py-4 px-6 mb-8">
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-semibold">Business News</h1>
+              <p className="text-sm mt-2">
+                Stay updated with the latest trends and insights in the world of business.
               </p>
-              <div className="flex justify-between items-center mt-4">
+            </div>
+            <Link to="/" className="text-white hover:underline">
+              Back to Home
+            </Link>
+          </div>
+          <p className="text-sm mt-2">Last Updated: {formattedLastUpdated}</p>
+        </div>
+
+        {/* First YouTube Video Section */}
+        <div className="mb-8">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <iframe
+              width="100%"
+              height="200"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <div className="p-6">
+              <h2 className="text-lg font-semibold mb-2">The Impact of Global Trends</h2>
+              <p className="text-gray-600 mb-4">
+                The world is changing rapidly with emerging trends shaping global markets and industries. Explore how these trends are influencing business strategies worldwide.
+              </p>
+              <div className="flex justify-between items-center mt-2">
                 <Link
-                  to={`/business/${article.slug}`}
+                  to={`/business/main-news`}
                   className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
                 >
-                  Read More
+                  Go to the Article
                 </Link>
-                {selectedArticle === article.id ? (
-                  <button
-                    onClick={handleReadLess}
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none"
-                  >
-                    Read Less
-                  </button>
-                ) : (
-                  <Link
-                    to={`/business/${article.slug}`}
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none"
-                  >
-                    Go to the Article
-                  </Link>
-                )}
               </div>
-            </div>
-            <div className="bg-gray-100 px-6 py-3">
-              <p className="text-gray-500 text-sm">By {article.author}</p>
-              <p className="text-gray-500 text-sm">{article.date}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Second YouTube Video Section */}
-      <div className="mb-8">
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <iframe
-            width="100%"
-            height="200"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <div className="p-6">
-            <h2 className="text-lg font-semibold mb-2">Latest News Updates</h2>
-            <p className="text-gray-600 mb-4">
-              Stay informed with the latest news developments in business and finance. Explore key insights and trends shaping the future of industries worldwide.
-            </p>
-            <div className="flex justify-between items-center mt-2">
-              <Link
-                to={`/business/latest-news`}
-                className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
-              >
-                Go to the Article
-              </Link>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Subscribe Form */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-lg font-semibold mb-2">Subscribe to Our Newsletter</h2>
-        <p className="text-gray-600 mb-4">
-          Stay updated with our latest articles and news updates by subscribing to our newsletter.
-        </p>
-        <form onSubmit={handleSubscribe}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={subscriberName}
-              onChange={(e) => setSubscriberName(e.target.value)}
-              required
-            />
+        {/* Articles Section */}
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          {articles.map((article) => (
+            <div key={article.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img src={article.image} alt={article.title} className="h-40 w-full object-cover" />
+              <div className="p-6">
+                <h2 className="text-lg font-semibold mb-2">{article.title}</h2>
+                <p className="text-gray-600 mb-4">
+                  {selectedArticle === article.id ? article.content : article.content.substring(0, 200)}...
+                </p>
+                <div className="flex justify-between items-center mt-4">
+                  <Link
+                    to={`/business/${article.slug}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+                  >
+                    Read More
+                  </Link>
+                  {selectedArticle === article.id ? (
+                    <button
+                      onClick={handleReadLess}
+                      className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none"
+                    >
+                      Read Less
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/business/${article.slug}`}
+                      className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded focus:outline-none"
+                    >
+                      Go to the Article
+                    </Link>
+                  )}
+                </div>
+              </div>
+              <div className="bg-gray-100 px-6 py-3">
+                <p className="text-gray-500 text-sm">By {article.author}</p>
+                <p className="text-gray-500 text-sm">{article.date}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Second YouTube Video Section */}
+        <div className="mb-8">
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <iframe
+              width="100%"
+              height="200"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <div className="p-6">
+              <h2 className="text-lg font-semibold mb-2">Latest News Updates</h2>
+              <p className="text-gray-600 mb-4">
+                Stay informed with the latest news developments in business and finance. Explore key insights and trends shaping the future of industries worldwide.
+              </p>
+              <div className="flex justify-between items-center mt-2">
+                <Link
+                  to={`/business/latest-news`}
+                  className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+                >
+                  Go to the Article
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              value={subscriberEmail}
-              onChange={(e) => setSubscriberEmail(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
-          >
-            Subscribe
-          </button>
-        </form>
+        </div>
+
+        {/* Subscribe Form */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-lg font-semibold mb-2">Subscribe to Our Newsletter</h2>
+          <p className="text-gray-600 mb-4">
+            Stay updated with our latest articles and news updates by subscribing to our newsletter.
+          </p>
+          <form onSubmit={handleSubscribe}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                value={subscriberName}
+                onChange={(e) => setSubscriberName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                value={subscriberEmail}
+                onChange={(e) => setSubscriberEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded focus:outline-none"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

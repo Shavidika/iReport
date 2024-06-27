@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import NewsCard from "../components/News/newsList";
 import Footer from "../pages/Footer";
+import News from "./News";
 
 export default function NewsFeed() {
   return (
@@ -12,6 +13,8 @@ export default function NewsFeed() {
         <p className="text-lg mb-6">Your trusted source for reliable news</p>
       </div> */}
       <div className="mt-20">
+
+      <News />
 
       <NewsCard />
       <Footer />

@@ -12,7 +12,7 @@ const articles = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
     author: 'John Doe',
     date: 'June 25, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.redasiainsurance.com/wp-content/uploads/2022/02/Sports-events-insurance-Main-scaled-e1644805433386.jpg', // Example image URL
     slug: 'top-sporting-events',
     category: 'sport',
   },
@@ -23,7 +23,7 @@ const articles = [
       'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
     author: 'Jane Smith',
     date: 'June 26, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://cdn.britannica.com/35/238335-050-2CB2EB8A/Lionel-Messi-Argentina-Netherlands-World-Cup-Qatar-2022.jpg', // Example image URL
     slug: 'athlete-spotlight',
     category: 'sport',
   },
@@ -34,7 +34,7 @@ const articles = [
       'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
     author: 'Alex Johnson',
     date: 'June 27, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.meritain.com/wp-content/uploads/2022/01/Image_Health-tips-for-the-gym_0122.jpg', // Example image URL
     slug: 'fitness-wellness-tips',
     category: 'sport',
   },
@@ -46,7 +46,7 @@ const articles = [
       'Fusce vel elementum purus, eu commodo augue. Integer gravida risus eget dolor consequat, in suscipit mi ultricies.',
     author: 'Emily Brown',
     date: 'July 3, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://theindianface.com/cdn/shop/articles/Documental-sobre-la-evolucion-de-los-deportes-extremos-en-Canal-Historia.jpg?v=1590404424', // Example image URL
     slug: 'evolution-of-extreme-sports',
     category: 'sport',
   },
@@ -57,7 +57,7 @@ const articles = [
       'Donec ullamcorper, sapien sed lobortis auctor, ipsum sapien vestibulum ligula, ac fermentum ipsum mi et justo.',
     author: 'Michael Johnson',
     date: 'July 4, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.foodmanufacture.co.uk/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodmanufacture.co.uk/article/2022/05/11/2022-sports-nutrition-trends/15405772-1-eng-GB/2022-sports-nutrition-trends.jpg', // Example image URL
     slug: 'trends-in-sports-nutrition',
     category: 'sport',
   },
@@ -68,7 +68,7 @@ const articles = [
       'Curabitur nec volutpat sem, vitae facilisis lorem. Duis fringilla risus non justo tristique rutrum.',
     author: 'Emma Watson',
     date: 'July 5, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://media.licdn.com/dms/image/D4D12AQG9GNd88H52sQ/article-cover_image-shrink_720_1280/0/1705485081318?e=2147483647&v=beta&t=AaCCwsHwYTP0PgTMAQeSh3reRP4yiUvOWqfVaA8QhZI', // Example image URL
     slug: 'impact-of-technology-on-sports',
     category: 'sport',
   },

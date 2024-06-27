@@ -13,7 +13,7 @@ const articles = [
     `,
     author: 'Sathsara Soysa',
     date: 'June 25, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://imageio.forbes.com/specials-images/imageserve/633a774a842d06ecd68286ff/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds', // Example image URL
     slug: 'new-business-strategy',
     category: 'business',
   },
@@ -25,7 +25,7 @@ const articles = [
     `,
     author: 'Nimsara Pamoda',
     date: 'June 26, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://economictimes.indiatimes.com/thumb/msid-89395141,width-1600,height-900,resizemode-4/markets/stocks/news/global-market-cues-for-february-07-2022.jpg', // Example image URL
     slug: 'global-market-trends',
     category: 'business',
   },
@@ -37,7 +37,7 @@ const articles = [
     `,
     author: 'Alex Johnson',
     date: 'June 27, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.smartosc.com/wp-content/uploads/2023/04/4-Types-of-Digital-Transformation-Projects.png', // Example image URL
     slug: 'digital-transformation-impact',
     category: 'business',
   },
@@ -49,7 +49,7 @@ const articles = [
     `,
     author: 'John Smith',
     date: 'June 28, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://images.fastcompany.com/image/upload/f_auto,q_auto,c_fit/wp-cms/uploads/2023/05/how_businesses_can_take_advantage_of_emerging_technologies-.jpg', // Example image URL
     slug: 'emerging-technologies',
     category: 'business',
   },
@@ -61,7 +61,7 @@ const articles = [
     `,
     author: 'Emily Brown',
     date: 'June 29, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://emeritus.org/wp-content/uploads/2022/07/Featured-Image-29.png', // Example image URL
     slug: 'supply-chain-challenges',
     category: 'business',
   },
@@ -73,7 +73,7 @@ const articles = [
     `,
     author: 'Sarah Miller',
     date: 'June 30, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.investopedia.com/thmb/qWzfHRHlBq1Yd8kH4L-RcQw9ZPU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1369954837-c20e50f4994d43309e9cbe5820573b07.jpg', // Example image URL
     slug: 'future-of-remote-work',
     category: 'business',
   },
@@ -85,7 +85,7 @@ const articles = [
     `,
     author: 'Michael Johnson',
     date: 'July 1, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://unctad.org/sites/default/files/2021-03/2021-03-15_eCommerceCOVID19report-1-1220x675px.jpg', // Example image URL
     slug: 'rise-of-ecommerce',
     category: 'business',
   },
@@ -97,7 +97,7 @@ const articles = [
     `,
     author: 'Emma Watson',
     date: 'July 2, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://arayara.org/wp-content/uploads/2023/08/DreamShaper_v7_renewable_energy_industry_making_big_money_0-1.jpg', // Example image URL
     slug: 'innovations-renewable-energy',
     category: 'business',
   },
@@ -109,7 +109,7 @@ const articles = [
     `,
     author: 'Jessica Lee',
     date: 'July 3, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://miro.medium.com/v2/resize:fit:1400/1*iHzg1qBy620EclFfK4nWNA.jpeg', // Example image URL
     slug: 'ai-in-healthcare',
     category: 'healthcare',
   },
@@ -121,7 +121,7 @@ const articles = [
     `,
     author: 'Andrew Green',
     date: 'July 4, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://media.licdn.com/dms/image/D5612AQGvm0ZJgyIz9w/article-cover_image-shrink_720_1280/0/1717055066995?e=2147483647&v=beta&t=UxhJFeawypRlVCID7w4YKAhFCY1S51525JZecaSdm2U', // Example image URL
     slug: 'cryptocurrency-trends',
     category: 'finance',
   },
@@ -133,7 +133,7 @@ const articles = [
     `,
     author: 'David White',
     date: 'July 5, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://equitablegrowth.org/wp-content/uploads/2021/12/Man-working-with-machines.jpg', // Example image URL
     slug: 'future-of-work-automation',
     category: 'business',
   },

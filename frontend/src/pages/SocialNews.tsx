@@ -12,7 +12,7 @@ const articles = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
     author: 'John Doe',
     date: 'June 25, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://wr1ter.com/wp-content/uploads/2023/07/Influence-of-Social-Media-on-Modern-Society.jpg', // Example image URL
     slug: 'impact-of-social-media',
     category: 'social',
   },
@@ -23,7 +23,7 @@ const articles = [
       'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
     author: 'Jane Smith',
     date: 'June 26, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.cybertegic.com/wp-content/uploads/2023/03/The-Rise-of-Influencer-Marketing-in-Digital-Advertising.jpg', // Example image URL
     slug: 'influencer-marketing-rise',
     category: 'social',
   },
@@ -34,7 +34,7 @@ const articles = [
       'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
     author: 'Alex Johnson',
     date: 'June 27, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://miro.medium.com/v2/resize:fit:1400/1*ZyeN0Q6OIJVB9g8RpOz0Zw.jpeg', // Example image URL
     slug: 'ethical-issues-social-media',
     category: 'social',
   },
@@ -46,7 +46,7 @@ const articles = [
       'Fusce vel elementum purus, eu commodo augue. Integer gravida risus eget dolor consequat, in suscipit mi ultricies.',
     author: 'Emily Brown',
     date: 'July 3, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.sabaseo.com/wp-content/uploads/2020/08/Social-Media-1.jpg', // Example image URL
     slug: 'future-of-social-networks',
     category: 'social',
   },
@@ -57,7 +57,7 @@ const articles = [
       'Donec ullamcorper, sapien sed lobortis auctor, ipsum sapien vestibulum ligula, ac fermentum ipsum mi et justo.',
     author: 'Michael Johnson',
     date: 'July 4, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://ncjtc-static.fvtc.edu/images/training/TR01667827_20230727015325.jpg', // Example image URL
     slug: 'privacy-concerns-online-communities',
     category: 'social',
   },
@@ -68,7 +68,7 @@ const articles = [
       'Curabitur nec volutpat sem, vitae facilisis lorem. Duis fringilla risus non justo tristique rutrum.',
     author: 'Emma Watson',
     date: 'July 5, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://uptoskills.com/wp-content/uploads/2024/01/social_media_activism_header.jpg', // Example image URL
     slug: 'role-of-social-media-political-movements',
     category: 'social',
   },

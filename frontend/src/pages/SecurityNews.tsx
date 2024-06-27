@@ -12,7 +12,7 @@ const articles = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vestibulum erat vitae tellus fringilla, a dapibus mi luctus. Nulla facilisi.',
     author: 'John Doe',
     date: 'June 25, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://smartphonemagazine.nl/wp-content/uploads/2024/06/compressed_img-2nzDjBwjNuXWZhfO41j4SzJv.png', // Example image URL
     slug: 'enhanced-security-measures',
     category: 'security',
   },
@@ -23,7 +23,7 @@ const articles = [
       'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst.',
     author: 'Jane Smith',
     date: 'June 26, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://media.licdn.com/dms/image/D5612AQE32z103yICGw/article-cover_image-shrink_720_1280/0/1698629760965?e=2147483647&v=beta&t=7lCZskuHaCzeyn0rAFqrE4zKocYjOHFqEV8GdIsXINw', // Example image URL
     slug: 'cybersecurity-trends',
     category: 'security',
   },
@@ -34,7 +34,7 @@ const articles = [
       'Sed euismod ligula eget finibus suscipit. Vivamus elementum varius odio, nec lobortis ipsum scelerisque ut. Aenean vel mauris id ipsum vehicula faucibus.',
     author: 'Alex Johnson',
     date: 'June 27, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://cdn.techwireasia.com/wp-content/uploads/2023/01/shutterstock_1875135925-scaled.jpg', // Example image URL
     slug: 'data-privacy-importance',
     category: 'security',
   },
@@ -46,7 +46,7 @@ const articles = [
       'Fusce vel elementum purus, eu commodo augue. Integer gravida risus eget dolor consequat, in suscipit mi ultricies.',
     author: 'Emily Brown',
     date: 'July 3, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://media.product.which.co.uk/prod/images/original/cee936f60f5f-antivirus-mobile.jpg', // Example image URL
     slug: 'emerging-threats-mobile-security',
     category: 'security',
   },
@@ -57,7 +57,7 @@ const articles = [
       'Donec ullamcorper, sapien sed lobortis auctor, ipsum sapien vestibulum ligula, ac fermentum ipsum mi et justo.',
     author: 'Michael Johnson',
     date: 'July 4, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://www.fornetix.com/wp-content/uploads/2022/09/blog-cyberdefense.jpg', // Example image URL
     slug: 'role-of-ai-cyber-defense',
     category: 'security',
   },
@@ -68,7 +68,7 @@ const articles = [
       'Curabitur nec volutpat sem, vitae facilisis lorem. Duis fringilla risus non justo tristique rutrum.',
     author: 'Emma Watson',
     date: 'July 5, 2024',
-    image: 'https://via.placeholder.com/400x250', // Example image URL
+    image: 'https://mlfk3cv5yvnx.i.optimole.com/cb:k-rC.2fd1d/w:auto/h:auto/q:mauto/f:best/https://www.ninjaone.com/wp-content/uploads/2023/10/N1-0668-Securing-IoT-Devices-blog-image.png', // Example image URL
     slug: 'challenges-securing-iot-devices',
     category: 'security',
   },
